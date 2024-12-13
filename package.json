@@ -6,12 +6,11 @@
   "module": "dist/index.js",
   "types": "dist/types/index.d.ts",
   "collection": "dist/collection/collection-manifest.json",
-  "collection:main": "dist/collection/index.js",
-  "unpkg": "dist/yeditor/yeditor.esm.js",
   "exports": {
     ".": {
-      "import": "./dist/yeditor/yeditor.esm.js",
-      "require": "./dist/yeditor/yeditor.cjs.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs.js",
+      "default": "./dist/index.js"
     },
     "./loader": {
       "import": "./loader/index.js",
@@ -29,7 +28,7 @@
   ],
   "scripts": {
     "build": "stencil build",
-    "start": "stencil build --dev --watch --serve",
+    "dev": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
     "generate": "stencil generate"
@@ -37,6 +36,7 @@
   "devDependencies": {
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
+    "@rollup/plugin-alias": "^5.1.1",
     "@stencil/core": "^4.22.3",
     "@types/jest": "^29.5.6",
     "@types/node": "^16.18.11",
@@ -52,5 +52,48 @@
     "prettier": "^3.4.2",
     "puppeteer": "^21.9.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "@stencil/sass": "^3.0.12",
+    "@tiptap/core": "^2.10.3",
+    "@tiptap/extension-blockquote": "^2.8.0",
+    "@tiptap/extension-bold": "^2.8.0",
+    "@tiptap/extension-bubble-menu": "^2.8.0",
+    "@tiptap/extension-bullet-list": "^2.8.0",
+    "@tiptap/extension-character-count": "^2.8.0",
+    "@tiptap/extension-code": "^2.8.0",
+    "@tiptap/extension-code-block-lowlight": "^2.8.0",
+    "@tiptap/extension-color": "^2.8.0",
+    "@tiptap/extension-document": "^2.8.0",
+    "@tiptap/extension-dropcursor": "^2.8.0",
+    "@tiptap/extension-font-family": "^2.8.0",
+    "@tiptap/extension-hard-break": "^2.8.0",
+    "@tiptap/extension-heading": "^2.8.0",
+    "@tiptap/extension-highlight": "^2.8.0",
+    "@tiptap/extension-horizontal-rule": "^2.8.0",
+    "@tiptap/extension-image": "^2.8.0",
+    "@tiptap/extension-italic": "^2.8.0",
+    "@tiptap/extension-link": "^2.9.1",
+    "@tiptap/extension-list-item": "^2.8.0",
+    "@tiptap/extension-ordered-list": "^2.8.0",
+    "@tiptap/extension-paragraph": "^2.8.0",
+    "@tiptap/extension-placeholder": "^2.10.3",
+    "@tiptap/extension-strike": "^2.8.0",
+    "@tiptap/extension-subscript": "^2.8.0",
+    "@tiptap/extension-superscript": "^2.8.0",
+    "@tiptap/extension-table": "^2.8.0",
+    "@tiptap/extension-table-cell": "^2.8.0",
+    "@tiptap/extension-table-header": "^2.8.0",
+    "@tiptap/extension-table-row": "^2.8.0",
+    "@tiptap/extension-task-item": "^2.8.0",
+    "@tiptap/extension-task-list": "^2.8.0",
+    "@tiptap/extension-text": "^2.8.0",
+    "@tiptap/extension-text-align": "^2.8.0",
+    "@tiptap/extension-text-style": "^2.8.0",
+    "@tiptap/extension-underline": "^2.8.0",
+    "@tiptap/pm": "^2.10.3",
+    "@tiptap/starter-kit": "^2.10.3",
+    "i18next": "^24.1.0",
+    "lowlight": "^3.1.0"
+  }
 }

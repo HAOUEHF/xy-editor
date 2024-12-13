@@ -1,0 +1,300 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.ProseMirror:focus-visible {
+  outline: #d4eaff auto 1px;
+}
+.tiptap {
+  p {
+    padding: 1px;
+    outline: none;
+  }
+  p.is-editor-empty:first-child::before {
+    color: #adb5bd;
+    content: attr(data-placeholder);
+    float: left;
+    height: 0;
+    pointer-events: none;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5 {
+    margin-top: 20px;
+    margin-bottom: 20px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  ul,
+  ol {
+    margin-bottom: 0;
+    margin-left: 24px;
+    margin-top: 0;
+    padding-bottom: 5px;
+    padding-left: 0;
+    padding-top: 5px;
+  }
+
+  ul[data-type='taskList'] {
+    list-style: none;
+    margin-left: 0;
+
+    li {
+      align-items: flex-start;
+      display: flex;
+
+      > label {
+        flex: 0 0 auto;
+        margin-right: 0.5rem;
+      }
+
+      > div {
+        flex: 1 1 auto;
+      }
+    }
+
+    /* 隐藏默认的复选框 */
+    input[type='checkbox'] {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border: 2px solid #969696;
+      border-radius: 3px;
+      position: relative;
+      cursor: pointer;
+      outline: none;
+    }
+
+    /* 未选中时的背景颜色 */
+    input[type='checkbox']:not(:checked) {
+      background-color: white;
+    }
+
+    /* 选中时的背景颜色 */
+    input[type='checkbox']:checked {
+      background-color: $primary-color; /* 自定义选中的颜色 */
+      border-color: $primary-color;
+    }
+
+    /* 使用伪元素绘制勾选标记 */
+    input[type='checkbox']::after {
+      content: '';
+      position: absolute;
+      top: 0px;
+      left: 4px;
+      width: 3px;
+      height: 9px;
+      border: solid white;
+      border-width: 0 2px 2px 0;
+      transform: rotate(45deg);
+      opacity: 0;
+      transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+    }
+    /* 当选中时显示勾选标记，并带有动画效果 */
+    input[type='checkbox']:checked::after {
+      opacity: 1;
+      transform: rotate(45deg) scale(1);
+    }
+  }
+
+  li > p {
+    margin: 0;
+  }
+
+  a {
+    color: $primary-color;
+    cursor: pointer;
+  }
+  strong,
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  li,
+  span {
+    word-break: break-all;
+  }
+  blockquote {
+    border-left: 2px solid #edf2fc;
+    border-radius: 2px;
+    color: $regular-text-color;
+    margin: 10px 0;
+    padding-left: 0.7em;
+  }
+
+  code {
+    background-color: $code-bg-color;
+    border-radius: 4px;
+    color: $code-color;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0 8px;
+  }
+
+  mark {
+    padding: 0.5px;
+  }
+
+  hr {
+    border: none;
+    border-top: 2px solid $hover-bg-color;
+    cursor: pointer;
+    margin: 15px 0;
+    border-radius: 20%;
+    &.ProseMirror-selectednode {
+      border-top: 2px solid $hover-bg-color;
+    }
+  }
+  table {
+    border-collapse: collapse;
+    margin: 0;
+    overflow: hidden;
+    table-layout: fixed;
+    width: 100%;
+
+    td,
+    th {
+      border: 1px solid #ced4da;
+      box-sizing: border-box;
+      min-width: 1em;
+      padding: 6px 8px;
+      position: relative;
+      vertical-align: top;
+
+      > * {
+        margin-bottom: 0;
+      }
+    }
+
+    th {
+      background-color: #f1f3f5;
+      font-weight: bold;
+      text-align: left;
+    }
+    tbody tr {
+      transition: background-color 0.25s ease;
+    }
+    /* 斑马条纹样式 */
+    tbody tr:nth-child(odd) {
+      background-color: #fafafa; /* 奇数行背景色 */
+    }
+
+    tbody tr:nth-child(even) {
+      background-color: #ffffff; /* 偶数行背景色 */
+    }
+    tbody tr:hover {
+      background-color: #f5f5f5;
+    }
+
+    .selectedCell:after {
+      background: rgba(200, 200, 255, 0.4);
+      content: '';
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      pointer-events: none;
+      position: absolute;
+      z-index: 2;
+    }
+
+    .column-resize-handle {
+      background-color: $focus-color;
+      bottom: -2px;
+      pointer-events: none;
+      position: absolute;
+      right: -1px;
+      top: 0;
+      width: 3px;
+    }
+    p {
+      margin: 0;
+    }
+  }
+
+  .tableWrapper {
+    margin: 15px 0;
+    overflow-x: auto;
+    /* 滚动条的宽度 */
+    &::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+
+    /* 滚动条轨道 */
+    &::-webkit-scrollbar-track {
+      background-color: #f5f5f5;
+      border-radius: 6px;
+    }
+
+    /* 滚动条滑块 */
+    &::-webkit-scrollbar-thumb {
+      background-color: #bfbfbf;
+      border-radius: 6px;
+    }
+
+    /* 鼠标悬停时的滚动条滑块样式 */
+    &::-webkit-scrollbar-thumb:hover {
+      background-color: #999999;
+      cursor: pointer;
+    }
+  }
+
+  &.resize-cursor {
+    cursor: ew-resize;
+    cursor: col-resize;
+  }
+}
+.custom-editor {
+  width: 100%;
+  padding: 5px;
+  min-height: 300px;
+  max-height: 700px;
+  overflow-y: auto;
+  /* 定义滚动条宽度 */
+  &::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 50%;
+  }
+
+  /* 定义滚动条轨道 */
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  /* 定义滚动条滑块 */
+  &::-webkit-scrollbar-thumb {
+    background: #7fbbff;
+    border-radius: 5px;
+  }
+  /* 定义横向滚动条轨道 */
+  &::-webkit-scrollbar-track:horizontal {
+    background: #f1f1f1;
+    border-radius: 5px;
+  }
+
+  /* 定义横向滚动条滑块 */
+  &::-webkit-scrollbar-thumb:horizontal {
+    background: #7fbbff;
+    border-radius: 5px;
+  }
+}

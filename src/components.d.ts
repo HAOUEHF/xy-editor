@@ -6,19 +6,65 @@
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 export namespace Components {
+    interface XyEditor {
+        "bubbleBar": string[];
+        "content": string;
+        "excludeBar": string[];
+        "extensions": any[];
+        "lange": string;
+        "menuBar": string[];
+        "placeholder": string;
+    }
+    interface XyIcon {
+        "height"?: string | number;
+        "name"?: string;
+        "width"?: string | number;
+    }
 }
 declare global {
+    interface HTMLXyEditorElement extends Components.XyEditor, HTMLStencilElement {
+    }
+    var HTMLXyEditorElement: {
+        prototype: HTMLXyEditorElement;
+        new (): HTMLXyEditorElement;
+    };
+    interface HTMLXyIconElement extends Components.XyIcon, HTMLStencilElement {
+    }
+    var HTMLXyIconElement: {
+        prototype: HTMLXyIconElement;
+        new (): HTMLXyIconElement;
+    };
     interface HTMLElementTagNameMap {
+        "xy-editor": HTMLXyEditorElement;
+        "xy-icon": HTMLXyIconElement;
     }
 }
 declare namespace LocalJSX {
+    interface XyEditor {
+        "bubbleBar"?: string[];
+        "content"?: string;
+        "excludeBar"?: string[];
+        "extensions"?: any[];
+        "lange"?: string;
+        "menuBar"?: string[];
+        "placeholder"?: string;
+    }
+    interface XyIcon {
+        "height"?: string | number;
+        "name"?: string;
+        "width"?: string | number;
+    }
     interface IntrinsicElements {
+        "xy-editor": XyEditor;
+        "xy-icon": XyIcon;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
+            "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
         }
     }
 }
