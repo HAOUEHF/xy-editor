@@ -5,6 +5,32 @@
 <!-- Auto Generated Below -->
 
 
+## Properties
+
+| Property      | Attribute     | Description | Type       | Default                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
+| ------------- | ------------- | ----------- | ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `bubbleBar`   | --            |             | `string[]` | `['bold', 'italic']`                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `content`     | `content`     |             | `string`   | `''`                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `excludeBar`  | --            |             | `string[]` | `['fontFamily']`                                                                                                                                                                                                                                                                                                                                                                                                                                               |
+| `extensions`  | --            |             | `any[]`    | `[]`                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| `lange`       | `lange`       |             | `string`   | `'en'`                                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+| `menuBar`     | --            |             | `string[]` | `[     'bold',     'italic',     'strike',     'underline',     'subscript',     'superscript',     'link',     '\|',     'heading',     'fontFamily',     '\|',     'highlight',     'fontColor',     '\|',     'blockquote',     'code',     'codeBlock',     '\|',     'textAlign',     'lineHeight',     'hardBreak',     'horizontalRule',     'orderedList',     'bulletList',     'taskList',     '\|',     'table',     'image',     'fullScreen'   ]` |
+| `placeholder` | `placeholder` |             | `string`   | `'请输入内容'`                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+
+
+## Dependencies
+
+### Depends on
+
+- [xy-icon](./components/xy-icon)
+
+### Graph
+```mermaid
+graph TD;
+  xy-editor --> xy-icon
+  style xy-editor fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ----------------------------------------------
 
 *Built with [StencilJS](https://stenciljs.com/)*

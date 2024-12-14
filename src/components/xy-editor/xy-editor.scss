@@ -6,6 +6,10 @@
   min-width: 300px;
 }
 .editor {
+  &-header {
+    padding: 7px 10px;
+    border-bottom: 1px solid #e4e7ed;
+  }
   &-content {
     width: 100%;
   }

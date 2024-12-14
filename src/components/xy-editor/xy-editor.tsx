@@ -81,12 +81,13 @@ export class XyEditor {
   editor?: Editor
   render() {
     return (
-      <Host>
+      <Host class="editor-container">
+        <div class="editor-header">
+          <xy-menu-bar></xy-menu-bar>
+        </div>
         <div class="editor-content"></div> {/* 编辑器的挂载容器 */}
-        <xy-icon name="BoldIcon"></xy-icon>
-        <xy-icon name="ImageIcon"></xy-icon>
-        <xy-icon name="LinkIcon"></xy-icon>
-        <div>{$t('extensions.bold')}</div>
+        <div class="text-right text-blue-400">fwefwe</div>
+
       </Host>
     )
   }

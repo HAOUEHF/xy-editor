@@ -5,6 +5,8 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Editor } from "@tiptap/core";
+export { Editor } from "@tiptap/core";
 export namespace Components {
     interface XyEditor {
         "bubbleBar": string[];
@@ -20,6 +22,10 @@ export namespace Components {
         "name"?: string;
         "width"?: string | number;
     }
+    interface XyMenuBar {
+        "editor"?: Editor;
+        "menuBar"?: any;
+    }
 }
 declare global {
     interface HTMLXyEditorElement extends Components.XyEditor, HTMLStencilElement {
@@ -34,9 +40,16 @@ declare global {
         prototype: HTMLXyIconElement;
         new (): HTMLXyIconElement;
     };
+    interface HTMLXyMenuBarElement extends Components.XyMenuBar, HTMLStencilElement {
+    }
+    var HTMLXyMenuBarElement: {
+        prototype: HTMLXyMenuBarElement;
+        new (): HTMLXyMenuBarElement;
+    };
     interface HTMLElementTagNameMap {
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
+        "xy-menu-bar": HTMLXyMenuBarElement;
     }
 }
 declare namespace LocalJSX {
@@ -54,9 +67,14 @@ declare namespace LocalJSX {
         "name"?: string;
         "width"?: string | number;
     }
+    interface XyMenuBar {
+        "editor"?: Editor;
+        "menuBar"?: any;
+    }
     interface IntrinsicElements {
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
+        "xy-menu-bar": XyMenuBar;
     }
 }
 export { LocalJSX as JSX };
@@ -65,6 +83,7 @@ declare module "@stencil/core" {
         interface IntrinsicElements {
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
+            "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;
         }
     }
 }
