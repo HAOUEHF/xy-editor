@@ -4,10 +4,6 @@
   box-sizing: border-box;
 }
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 .ProseMirror:focus-visible {
   outline: #d4eaff auto 1px;
 }
@@ -302,6 +298,6 @@
     border-radius: 5px;
   }
 }
-.comm-red{
+.comm-red {
   color: red;
 }

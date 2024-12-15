@@ -5,9 +5,14 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { MenuItem } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 import { Editor } from "@tiptap/core";
+export { MenuItem } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 export { Editor } from "@tiptap/core";
 export namespace Components {
+    interface XyButtonMenu {
+        "data": MenuItem;
+    }
     interface XyEditor {
         "bubbleBar": string[];
         "content": string;
@@ -28,6 +33,12 @@ export namespace Components {
     }
 }
 declare global {
+    interface HTMLXyButtonMenuElement extends Components.XyButtonMenu, HTMLStencilElement {
+    }
+    var HTMLXyButtonMenuElement: {
+        prototype: HTMLXyButtonMenuElement;
+        new (): HTMLXyButtonMenuElement;
+    };
     interface HTMLXyEditorElement extends Components.XyEditor, HTMLStencilElement {
     }
     var HTMLXyEditorElement: {
@@ -47,12 +58,16 @@ declare global {
         new (): HTMLXyMenuBarElement;
     };
     interface HTMLElementTagNameMap {
+        "xy-button-menu": HTMLXyButtonMenuElement;
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
         "xy-menu-bar": HTMLXyMenuBarElement;
     }
 }
 declare namespace LocalJSX {
+    interface XyButtonMenu {
+        "data"?: MenuItem;
+    }
     interface XyEditor {
         "bubbleBar"?: string[];
         "content"?: string;
@@ -72,6 +87,7 @@ declare namespace LocalJSX {
         "menuBar"?: any;
     }
     interface IntrinsicElements {
+        "xy-button-menu": XyButtonMenu;
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
         "xy-menu-bar": XyMenuBar;
@@ -81,6 +97,7 @@ export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "xy-button-menu": LocalJSX.XyButtonMenu & JSXBase.HTMLAttributes<HTMLXyButtonMenuElement>;
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
             "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;

@@ -9,9 +9,15 @@ export class XyMenuBar {
   @Prop() editor?: Editor
   @Prop() menuBar?: any
 
+  @State() data = {
+    props: {
+      icon: 'BoldIcon'
+    }
+  }
   render() {
     return (
-      <Host class="editor-memu flex items-center gap-2 h-auto flex-wrap">
+      <Host class="editor-memu">
+        <xy-button-menu data={this.data}></xy-button-menu>
       </Host>
     )
   }

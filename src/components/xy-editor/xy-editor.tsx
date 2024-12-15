@@ -86,8 +86,6 @@ export class XyEditor {
           <xy-menu-bar></xy-menu-bar>
         </div>
         <div class="editor-content"></div> {/* 编辑器的挂载容器 */}
-        <div class="text-right text-blue-400">fwefwe</div>
-
       </Host>
     )
   }

@@ -7,8 +7,8 @@ import * as Icons from '@/icons/index'
 })
 export class XyIcon {
   @Prop({ reflect: true }) name?: string // reflect: true 表示将属性值同步到元素的属性上
-  @Prop() width?: string | number = 22
-  @Prop() height?: string | number = 22
+  @Prop() width?: string | number = 16
+  @Prop() height?: string | number = 16
 
   @State() private iconNode = ''
 
@@ -34,7 +34,7 @@ export class XyIcon {
     if (!this.iconNode) return null
     return (
       <Host class="xy-icon">
-        <img src={this.iconNode} width={this.width} height={this.height} alt="icon" />
+        <img src={this.iconNode} style={{ width: this.width + 'px', height: this.height + 'px' }} alt="icon" />
       </Host>
     )
   }

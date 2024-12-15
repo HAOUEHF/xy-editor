@@ -1,0 +1,18 @@
+:host {
+  --bg-color-white: #ffffff;
+  --bg-color-black: #000000;
+  --bg-color-e4e7ed: #e4e7ed;
+  --bg-color-aeaeae: #aeaeae;
+}
+
+:host([data-theme='light']) {
+  --bg-color: var(--bg-color-white);
+  --text-color: var(--bg-color-black);
+  --border-bottom-color: var(--bg-color-e4e7ed);
+}
+
+:host([data-theme='dark']) {
+  --bg-color: var(--bg-color-black);
+  --text-color: var(--bg-color-white);
+  --border-bottom-color: var(--bg-color-aeaeae);
+}

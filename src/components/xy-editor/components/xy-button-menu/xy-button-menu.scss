@@ -1,0 +1,23 @@
+.button-menu-item {
+  border-radius: 5px;
+  transition: all 0.2s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  padding: 7px;
+  color: $icon-color;
+  &:hover {
+    background-color: $hover-bg-color;
+  }
+}
+
+.is-active {
+  background-color: $icon-active-color;
+  color: $primary-color;
+}
+
+.is-disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
