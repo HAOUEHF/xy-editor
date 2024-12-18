@@ -22,12 +22,14 @@
 
 ### Depends on
 
-- [xy-icon](./components/xy-icon)
+- [xy-menu-bar](./components/xy-menu-bar)
 
 ### Graph
 ```mermaid
 graph TD;
-  xy-editor --> xy-icon
+  xy-editor --> xy-menu-bar
+  xy-menu-bar --> xy-button-menu
+  xy-button-menu --> xy-icon
   style xy-editor fill:#f9f,stroke:#333,stroke-width:4px
 ```
 

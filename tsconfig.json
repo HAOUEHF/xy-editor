@@ -19,7 +19,7 @@
       "@/*": ["src/*"]
     },
     /* 允许使用`import`语法代替CommonJS的`require` */
-    "esModuleInterop": true
+    "esModuleInterop": true,
   },
   "include": ["src"],
   "exclude": ["node_modules"]

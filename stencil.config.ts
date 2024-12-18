@@ -5,6 +5,7 @@ import path from 'path'
 // import { postcss } from '@stencil-community/postcss'
 // import autoprefixer from 'autoprefixer'
 // import tailwindcss from 'tailwindcss' // 添加 Tailwind CSS
+import svgPlugin from './rollup-plugin-svg';
 
 export const config: Config = {
   namespace: 'xy-editor',
@@ -32,7 +33,8 @@ export const config: Config = {
   plugins: [
     sass({
       injectGlobalPaths: ['src/common/styles/var.scss', 'src/common/styles/common.scss', 'src/common/styles/theme.scss']
-    })
+    }),
+    svgPlugin()
     // postcss({
     //   plugins: [autoprefixer(), tailwindcss()]
     // })

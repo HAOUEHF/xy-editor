@@ -1,6 +1,6 @@
 import { Component, Host, h, Element, Prop } from '@stencil/core'
 import { Editor } from '@tiptap/core'
-import { $t } from '@/i18n'
+// import { $t } from '@/i18n'
 
 import {
   Bold,

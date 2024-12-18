@@ -9,21 +9,21 @@
 
 | Property | Attribute | Description | Type                            | Default     |
 | -------- | --------- | ----------- | ------------------------------- | ----------- |
-| `height` | `height`  |             | `number \| string \| undefined` | `22`        |
+| `height` | `height`  |             | `number \| string \| undefined` | `16`        |
 | `name`   | `name`    |             | `string \| undefined`           | `undefined` |
-| `width`  | `width`   |             | `number \| string \| undefined` | `22`        |
+| `width`  | `width`   |             | `number \| string \| undefined` | `16`        |
 
 
 ## Dependencies
 
 ### Used by
 
- - [xy-editor](../..)
+ - [xy-button-menu](../xy-button-menu)
 
 ### Graph
 ```mermaid
 graph TD;
-  xy-editor --> xy-icon
+  xy-button-menu --> xy-icon
   style xy-icon fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
