@@ -6,15 +6,15 @@
   justify-content: center;
   cursor: pointer;
   padding: 7px;
-  color: $icon-color;
+  color: var(--svg-color);
   &:hover {
-    background-color: $hover-bg-color;
+    background-color: var(--menu-btn-hover-color);
   }
 }
 
 .is-active {
-  background-color: $icon-active-color;
-  color: $primary-color;
+  background-color: var(--menu-btn-active-bg-color);
+  color: var(--menu-btn-active-color);
 }
 
 .is-disabled {

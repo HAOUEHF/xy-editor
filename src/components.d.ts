@@ -21,6 +21,7 @@ export namespace Components {
         "lange": string;
         "menuBar": string[];
         "placeholder": string;
+        "theme": string;
     }
     interface XyIcon {
         "height"?: string | number;
@@ -76,6 +77,7 @@ declare namespace LocalJSX {
         "lange"?: string;
         "menuBar"?: string[];
         "placeholder"?: string;
+        "theme"?: string;
     }
     interface XyIcon {
         "height"?: string | number;

@@ -77,11 +77,11 @@ export class XyEditor {
   @Prop() extensions: any[] = []
   @Prop() content: string = ''
   @Prop() placeholder: string = '请输入内容'
-
+  @Prop() theme: string = 'light'
   editor?: Editor
   render() {
     return (
-      <Host class="editor-container">
+      <Host class="editor-container" data-theme={this.theme}>
         <div class="editor-header">
           <xy-menu-bar></xy-menu-bar>
         </div>

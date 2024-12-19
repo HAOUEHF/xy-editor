@@ -21,7 +21,7 @@ export class XyButtonMenu {
         onClick={() => this.handleCommand()}
       >
         <xy-icon name={this.data.props.icon}></xy-icon>
-        <xy-icon name="DownIcon"></xy-icon>
+        <xy-icon name="DownIcon" width={14} height={14}></xy-icon>
       </div>
     )
   }

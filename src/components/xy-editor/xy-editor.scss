@@ -1,20 +1,23 @@
 :host {
   width: 100%;
   height: auto;
-  border-radius: 5px;
-  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  border-radius: 4px;
+  box-shadow: 0 2px 12px 0 var(--card-bs-color);
   min-width: 300px;
   display: block;
-  --red-color: red;
+  overflow: hidden;
+  caret-color: var(--caret-color);
+  color: var(--text-color);
 }
 
 .editor {
   &-header {
     padding: 7px 10px;
-    border-bottom: 1px solid var(--bg-color-black);
+    border-bottom: 1px solid var(--header-bottom-color);
     background-color: var(--bg-color);
   }
   &-content {
     width: 100%;
+    background-color: var(--bg-color);
   }
 }
