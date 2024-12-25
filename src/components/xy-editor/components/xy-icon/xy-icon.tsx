@@ -1,6 +1,5 @@
 import { Component, h, Prop, State, Host, Element } from '@stencil/core'
 import * as Icons from '@/icons/index'
-console.log(Icons)
 
 @Component({
   tag: 'xy-icon',

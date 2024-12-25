@@ -1,6 +1,5 @@
-import { Component, Host, h, Element, Prop } from '@stencil/core'
-import { Editor } from '@tiptap/core'
-// import { $t } from '@/i18n'
+import { Component, Host, h, Element, Prop, State, getElement } from '@stencil/core'
+import { Editor, Extension } from '@tiptap/core'
 
 import {
   Bold,
@@ -78,43 +77,25 @@ export class XyEditor {
   @Prop() content: string = ''
   @Prop() placeholder: string = '请输入内容'
   @Prop() theme: string = 'light'
-  editor?: Editor
+
+  @State() editor?: Editor
+  @State() menuBarList: string[] = []
+
   render() {
     return (
       <Host class="editor-container" data-theme={this.theme}>
         <div class="editor-header">
-          <xy-menu-bar></xy-menu-bar>
+          {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
         </div>
         <div class="editor-content"></div> {/* 编辑器的挂载容器 */}
       </Host>
     )
   }
 
-  componentDidLoad() {
-    if (this.el) {
-      this.editor = new Editor({
-        element: this.el?.shadowRoot?.querySelector('.editor-content')!, // 使用根元素获取子元素
-        extensions: [StarterKit, Bold],
-        content: this.content,
-        editorProps: {
-          attributes: {
-            // 自定义样式
-            class: 'custom-editor'
-          }
-        }
-      })
-    }
-  }
-  componentWillUnload() {
-    if (this.editor) {
-      this.editor.destroy() // 清理 editor 实例
-    }
-  }
-
   /**
    * 获取所有扩展
    */
-  allExtensions = () => {
+  allExtensions = (): Extension[] => {
     // 默认扩展
     const coreExtensions = [
       StarterKit,
@@ -158,5 +139,37 @@ export class XyEditor {
       return this.menuBar.includes(item.name)
     })
     return [...coreExtensions, ...menuExtensions]
+  }
+
+  getMenuBarList = () => {
+    this.menuBarList = this.menuBar.filter(item => !this.excludeBar.includes(item))
+  }
+
+  componentWillUnload() {
+    if (this.editor) {
+      this.editor.destroy() // 清理 editor 实例
+    }
+  }
+  componentWillLoad() {
+    console.log('父生命周期：componentWillLoad')
+    this.getMenuBarList()
+  }
+
+  componentDidLoad() {
+    console.log('父生命周期：componentDidLoad')
+    console.log(this.el, this.el?.shadowRoot?.querySelector('.editor-content'))
+    if (this.el) {
+      this.editor = new Editor({
+        element: this.el?.shadowRoot?.querySelector('.editor-content')!, // 使用根元素获取子元素
+        extensions: [...this.allExtensions()],
+        content: this.content,
+        editorProps: {
+          attributes: {
+            // 自定义样式
+            class: 'custom-editor'
+          }
+        }
+      })
+    }
   }
 }

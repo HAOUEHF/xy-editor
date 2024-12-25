@@ -1,4 +1,4 @@
-import { Component, Prop, h } from '@stencil/core'
+import { Component, Prop, State, h, Host } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
 
 export interface MenuItem {
@@ -12,27 +12,33 @@ export interface MenuItem {
 export class XyButtonMenu {
   @Prop() data: MenuItem = { props: {} }
 
+  @State() isActive: XYMenuBarItem['isActive'] = this.data.props?.isActive || false
+  @State() isDropdown: XYMenuBarItem['isDropdown'] = this.data.props?.isDropdown || false
+  @State() name: XYMenuBarItem['name'] = this.data.props?.name || ''
+  @State() shortcutKeys: XYMenuBarItem['shortcutKeys'] = this.data.props?.shortcutKeys || ''
+  @State() icon: XYMenuBarItem['icon'] = this.data.props?.icon || ''
+  @State() command: XYMenuBarItem['command'] = this.data.props?.command || (() => {})
+  @State() disabled: XYMenuBarItem['disabled'] = this.data.props?.disabled || false
+
   render() {
     return (
-      <div
+      <Host
         class="button-menu-item"
-        data-name={this.data.props.name}
-        data-shortcutKeys={this.data.props.shortcutKeys}
+        data-name={this.name}
+        data-shortcutKeys={this.shortcutKeys}
         onClick={() => this.handleCommand()}
       >
-        <xy-icon name={this.data.props.icon}></xy-icon>
-        <xy-icon name="DownIcon" width={14} height={14}></xy-icon>
-      </div>
+        <xy-icon name={this.icon}></xy-icon>
+        {this.isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
+      </Host>
     )
   }
 
-  componentWillLoad() {
-    console.log(this.data)
-  }
+  componentWillLoad() {}
 
   private handleCommand() {
-    if (this.data.props.disabled) return
+    if (this.disabled) return
 
-    this.data.props.command?.()
+    this.command?.()
   }
 }

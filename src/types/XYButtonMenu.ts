@@ -5,4 +5,5 @@ export type XYMenuBarItem = {
   name: string
   shortcutKeys: string
   disabled: boolean
+  isDropdown?: boolean
 }
