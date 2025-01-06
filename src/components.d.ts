@@ -5,20 +5,20 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { MenuItem } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
+import { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 import { Editor } from "@tiptap/core";
-export { MenuItem } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
+export { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 export { Editor } from "@tiptap/core";
 export namespace Components {
     interface XyButtonMenu {
-        "data": MenuItem;
+        "menuData": IMenuItemProps;
     }
     interface XyEditor {
         "bubbleBar": string[];
         "content": string;
         "excludeBar": string[];
         "extensions": any[];
-        "lange": string;
+        "lang": string;
         "menuBar": string[];
         "placeholder": string;
         "theme": string;
@@ -30,7 +30,7 @@ export namespace Components {
     }
     interface XyMenuBar {
         "editor"?: Editor;
-        "menuBar"?: any;
+        "menuBar"?: string[];
     }
 }
 declare global {
@@ -67,14 +67,14 @@ declare global {
 }
 declare namespace LocalJSX {
     interface XyButtonMenu {
-        "data"?: MenuItem;
+        "menuData"?: IMenuItemProps;
     }
     interface XyEditor {
         "bubbleBar"?: string[];
         "content"?: string;
         "excludeBar"?: string[];
         "extensions"?: any[];
-        "lange"?: string;
+        "lang"?: string;
         "menuBar"?: string[];
         "placeholder"?: string;
         "theme"?: string;
@@ -86,7 +86,7 @@ declare namespace LocalJSX {
     }
     interface XyMenuBar {
         "editor"?: Editor;
-        "menuBar"?: any;
+        "menuBar"?: string[];
     }
     interface IntrinsicElements {
         "xy-button-menu": XyButtonMenu;

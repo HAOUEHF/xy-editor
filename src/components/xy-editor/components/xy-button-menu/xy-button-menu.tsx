@@ -1,7 +1,7 @@
 import { Component, Prop, State, h, Host } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
 
-export interface MenuItem {
+export interface IMenuItemProps {
   props: Partial<XYMenuBarItem>
 }
 
@@ -9,36 +9,49 @@ export interface MenuItem {
   tag: 'xy-button-menu',
   styleUrl: 'xy-button-menu.scss'
 })
-export class XyButtonMenu {
-  @Prop() data: MenuItem = { props: {} }
+export class XYButtonMenu {
+  @Prop() menuData: IMenuItemProps = { props: {} }
 
-  @State() isActive: XYMenuBarItem['isActive'] = this.data.props?.isActive || false
-  @State() isDropdown: XYMenuBarItem['isDropdown'] = this.data.props?.isDropdown || false
-  @State() name: XYMenuBarItem['name'] = this.data.props?.name || ''
-  @State() shortcutKeys: XYMenuBarItem['shortcutKeys'] = this.data.props?.shortcutKeys || ''
-  @State() icon: XYMenuBarItem['icon'] = this.data.props?.icon || ''
-  @State() command: XYMenuBarItem['command'] = this.data.props?.command || (() => {})
-  @State() disabled: XYMenuBarItem['disabled'] = this.data.props?.disabled || false
+  // 使用对象解构简化初始化
+  @State() private buttonState: Pick<XYMenuBarItem, 'isActive' | 'isDropdown' | 'name' | 'shortcutKeys' | 'icon' | 'command' | 'disabled'> = {
+    isActive: this.menuData.props?.isActive ?? false,
+    isDropdown: this.menuData.props?.isDropdown ?? false,
+    name: this.menuData.props?.name ?? '',
+    shortcutKeys: this.menuData.props?.shortcutKeys ?? '',
+    icon: this.menuData.props?.icon ?? '',
+    command: this.menuData.props?.command ?? (() => {}),
+    disabled: this.menuData.props?.disabled ?? false
+  }
 
   render() {
+    const { isActive, isDropdown, name, shortcutKeys, icon, disabled } = this.buttonState
+
     return (
       <Host
-        class="button-menu-item"
-        data-name={this.name}
-        data-shortcutKeys={this.shortcutKeys}
-        onClick={() => this.handleCommand()}
+        class={{
+          'xy-button-menu': true,
+          'xy-button-menu--active': isActive,
+          'xy-button-menu--disabled': disabled
+        }}
+        data-button-name={name}
+        data-shortcut-keys={shortcutKeys}
+        onClick={this.handleButtonClick.bind(this)}
       >
-        <xy-icon name={this.icon}></xy-icon>
-        {this.isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
+        {icon && <xy-icon name={icon}></xy-icon>}
+        {isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
       </Host>
     )
   }
 
-  componentWillLoad() {}
+  componentWillLoad() {
+    // 组件加载时的初始化逻辑
+  }
 
-  private handleCommand() {
-    if (this.disabled) return
+  private handleButtonClick = (): void => {
+    if (this.buttonState.disabled) {
+      return
+    }
 
-    this.command?.()
+    this.buttonState.command?.()
   }
 }

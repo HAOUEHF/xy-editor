@@ -1,23 +1,31 @@
-.button-menu-item {
-  border-radius: 5px;
-  transition: all 0.2s ease-in-out;
+.xy-button-menu {
+  $self: &;
+
+  // 基础样式
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
   padding: 7px;
+  border-radius: 5px;
   color: var(--svg-color);
-  &:hover {
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  // 悬停状态
+  &:hover:not(#{$self}--disabled) {
     background-color: var(--menu-btn-hover-color);
   }
-}
 
-.is-active {
-  background-color: var(--menu-btn-active-bg-color);
-  color: var(--menu-btn-active-color);
-}
+  // 激活状态
+  &--active {
+    background-color: var(--menu-btn-active-bg-color);
+    color: var(--menu-btn-active-color);
+  }
 
-.is-disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
+  // 禁用状态
+  &--disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
 }

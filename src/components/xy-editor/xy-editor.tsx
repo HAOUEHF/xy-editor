@@ -17,7 +17,7 @@ import {
   textStyle,
   Color,
   StarterKit,
-  Documnet,
+  Document,
   FontFamily,
   Blockquote,
   TextAlign,
@@ -39,7 +39,7 @@ import {
 })
 export class XyEditor {
   @Element() el?: HTMLElement // 获取组件的根元素
-  @Prop() lange: string = 'en' // 语言
+  @Prop() lang: string = 'en' // 语言
   @Prop() menuBar: string[] = [
     'bold',
     'italic',
@@ -101,7 +101,7 @@ export class XyEditor {
       StarterKit,
       textStyle,
       Color,
-      Documnet,
+      Document,
       Placeholder.configure({
         placeholder: this.placeholder
       }),
