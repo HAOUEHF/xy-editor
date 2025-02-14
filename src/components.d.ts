@@ -7,12 +7,8 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 import { Editor } from "@tiptap/core";
-import { Placement } from "@floating-ui/dom";
-import { XYTooltipTrigger } from "./types/XYTooltip";
 export { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 export { Editor } from "@tiptap/core";
-export { Placement } from "@floating-ui/dom";
-export { XYTooltipTrigger } from "./types/XYTooltip";
 export namespace Components {
     interface XyButtonMenu {
         "menuData": IMenuItemProps;
@@ -35,12 +31,6 @@ export namespace Components {
     interface XyMenuBar {
         "editor"?: Editor;
         "menuBar"?: string[];
-    }
-    interface XyTooltip {
-        "content"?: string;
-        "initTooltip": () => Promise<void>;
-        "placement": Placement;
-        "trigger": XYTooltipTrigger;
     }
 }
 declare global {
@@ -68,18 +58,11 @@ declare global {
         prototype: HTMLXyMenuBarElement;
         new (): HTMLXyMenuBarElement;
     };
-    interface HTMLXyTooltipElement extends Components.XyTooltip, HTMLStencilElement {
-    }
-    var HTMLXyTooltipElement: {
-        prototype: HTMLXyTooltipElement;
-        new (): HTMLXyTooltipElement;
-    };
     interface HTMLElementTagNameMap {
         "xy-button-menu": HTMLXyButtonMenuElement;
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
         "xy-menu-bar": HTMLXyMenuBarElement;
-        "xy-tooltip": HTMLXyTooltipElement;
     }
 }
 declare namespace LocalJSX {
@@ -105,17 +88,11 @@ declare namespace LocalJSX {
         "editor"?: Editor;
         "menuBar"?: string[];
     }
-    interface XyTooltip {
-        "content"?: string;
-        "placement"?: Placement;
-        "trigger"?: XYTooltipTrigger;
-    }
     interface IntrinsicElements {
         "xy-button-menu": XyButtonMenu;
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
         "xy-menu-bar": XyMenuBar;
-        "xy-tooltip": XyTooltip;
     }
 }
 export { LocalJSX as JSX };
@@ -126,7 +103,6 @@ declare module "@stencil/core" {
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
             "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;
-            "xy-tooltip": LocalJSX.XyTooltip & JSXBase.HTMLAttributes<HTMLXyTooltipElement>;
         }
     }
 }

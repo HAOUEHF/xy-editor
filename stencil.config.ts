@@ -46,5 +46,9 @@ export const config: Config = {
         entries: [{ find: '@', replacement: path.resolve(__dirname, 'src') }]
       })
     ]
+  },
+  devServer: {
+    openBrowser: false,
+    reloadStrategy: 'pageReload'
   }
 }
