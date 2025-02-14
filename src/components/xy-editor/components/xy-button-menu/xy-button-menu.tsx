@@ -1,6 +1,6 @@
-import { Component, Prop, State, h, Host } from '@stencil/core'
+import { Component, Prop, State, h, Host, Element } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
-
+import { useTooltip } from '@/hooks'
 export interface IMenuItemProps {
   props: Partial<XYMenuBarItem>
 }
@@ -13,7 +13,10 @@ export class XYButtonMenu {
   @Prop() menuData: IMenuItemProps = { props: {} }
 
   // 使用对象解构简化初始化
-  @State() private buttonState: Pick<XYMenuBarItem, 'isActive' | 'isDropdown' | 'name' | 'shortcutKeys' | 'icon' | 'command' | 'disabled'> = {
+  @State() private buttonState: Pick<
+    XYMenuBarItem,
+    'isActive' | 'isDropdown' | 'name' | 'shortcutKeys' | 'icon' | 'command' | 'disabled'
+  > = {
     isActive: this.menuData.props?.isActive ?? false,
     isDropdown: this.menuData.props?.isDropdown ?? false,
     name: this.menuData.props?.name ?? '',
@@ -22,6 +25,8 @@ export class XYButtonMenu {
     command: this.menuData.props?.command ?? (() => {}),
     disabled: this.menuData.props?.disabled ?? false
   }
+
+  @Element() el!: HTMLElement
 
   render() {
     const { isActive, isDropdown, name, shortcutKeys, icon, disabled } = this.buttonState
@@ -33,8 +38,8 @@ export class XYButtonMenu {
           'xy-button-menu--active': isActive,
           'xy-button-menu--disabled': disabled
         }}
-        data-button-name={name}
-        data-shortcut-keys={shortcutKeys}
+        data-name={name}
+        data-shortcutKeys={shortcutKeys}
         onClick={this.handleButtonClick.bind(this)}
       >
         {icon && <xy-icon name={icon}></xy-icon>}
@@ -43,15 +48,20 @@ export class XYButtonMenu {
     )
   }
 
-  componentWillLoad() {
-    // 组件加载时的初始化逻辑
-  }
-
   private handleButtonClick = (): void => {
     if (this.buttonState.disabled) {
       return
     }
 
     this.buttonState.command?.()
+  }
+
+  componentDidLoad() {
+    // 组件加载时的初始化逻辑
+    const menuEl = this.el
+    // console.log(menuEl)
+    if (menuEl) {
+      useTooltip({ el: menuEl })
+    }
   }
 }

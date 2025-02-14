@@ -1,0 +1,31 @@
+@import url('../../node_modules/tippy.js/dist/tippy.css');
+
+.tippy-box[data-theme~='light'] {
+  .tippy-content {
+    /* background-color: #333; */
+  }
+  .tool-name {
+    font-size: 13px;
+    text-align: center;
+  }
+  .tool-keys {
+    font-size: 11px;
+    text-align: center;
+    color: #bbc6ce;
+  }
+}
+
+.tippy-box[data-theme~='dark'] {
+  .tippy-content {
+    background-color: #fff;
+  }
+  .tool-name {
+    font-size: 13px;
+    text-align: center;
+  }
+  .tool-keys {
+    font-size: 11px;
+    text-align: center;
+    color: #bbc6ce;
+  }
+}

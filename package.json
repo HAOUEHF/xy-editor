@@ -102,6 +102,7 @@
     "@tiptap/starter-kit": "^2.11.0",
     "i18next": "^24.2.0",
     "lowlight": "^3.3.0",
-    "rollup": "^4.30.0"
+    "rollup": "^4.30.0",
+    "tippy.js": "^6.3.7"
   }
 }

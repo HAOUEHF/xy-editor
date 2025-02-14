@@ -7,10 +7,10 @@
 
 ## Properties
 
-| Property  | Attribute  | Description | Type                  | Default     |
-| --------- | ---------- | ----------- | --------------------- | ----------- |
-| `editor`  | --         |             | `Editor \| undefined` | `undefined` |
-| `menuBar` | `menu-bar` |             | `any`                 | `undefined` |
+| Property  | Attribute | Description | Type                    | Default     |
+| --------- | --------- | ----------- | ----------------------- | ----------- |
+| `editor`  | --        |             | `Editor \| undefined`   | `undefined` |
+| `menuBar` | --        |             | `string[] \| undefined` | `undefined` |
 
 
 ## Dependencies

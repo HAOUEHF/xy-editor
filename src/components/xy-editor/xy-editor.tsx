@@ -1,4 +1,4 @@
-import { Component, Host, h, Element, Prop, State, getElement } from '@stencil/core'
+import { Component, Host, h, Element, Prop, State } from '@stencil/core'
 import { Editor, Extension } from '@tiptap/core'
 
 import {
@@ -39,7 +39,7 @@ import {
 })
 export class XyEditor {
   @Element() el?: HTMLElement // 获取组件的根元素
-  @Prop() lang: string = 'en' // 语言
+  @Prop() language: string = 'en' // 语言
   @Prop() menuBar: string[] = [
     'bold',
     'italic',
@@ -87,7 +87,7 @@ export class XyEditor {
         <div class="editor-header">
           {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
         </div>
-        <div class="editor-content"></div> {/* 编辑器的挂载容器 */}
+        <div class="editor-content"></div>
       </Host>
     )
   }

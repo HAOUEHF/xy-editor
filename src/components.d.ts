@@ -22,7 +22,7 @@ export namespace Components {
         "content": string;
         "excludeBar": string[];
         "extensions": any[];
-        "lang": string;
+        "language": string;
         "menuBar": string[];
         "placeholder": string;
         "theme": string;
@@ -91,7 +91,7 @@ declare namespace LocalJSX {
         "content"?: string;
         "excludeBar"?: string[];
         "extensions"?: any[];
-        "lang"?: string;
+        "language"?: string;
         "menuBar"?: string[];
         "placeholder"?: string;
         "theme"?: string;

@@ -5,10 +5,11 @@ import path from 'path'
 // import { postcss } from '@stencil-community/postcss'
 // import autoprefixer from 'autoprefixer'
 // import tailwindcss from 'tailwindcss' // 添加 Tailwind CSS
-import svgPlugin from './rollup-plugin-svg';
+import svgPlugin from './rollup-plugin-svg'
 
 export const config: Config = {
   namespace: 'xy-editor',
+  globalStyle: 'src/global/global.css',
   outputTargets: [
     {
       type: 'dist',

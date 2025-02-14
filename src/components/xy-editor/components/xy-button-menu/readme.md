@@ -7,9 +7,9 @@
 
 ## Properties
 
-| Property | Attribute | Description | Type       | Default         |
-| -------- | --------- | ----------- | ---------- | --------------- |
-| `data`   | --        |             | `MenuItem` | `{ props: {} }` |
+| Property   | Attribute | Description | Type             | Default         |
+| ---------- | --------- | ----------- | ---------------- | --------------- |
+| `menuData` | --        |             | `IMenuItemProps` | `{ props: {} }` |
 
 
 ## Dependencies
