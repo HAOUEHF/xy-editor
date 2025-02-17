@@ -1,6 +1,6 @@
 import { Component, Host, h, Element, Prop, State } from '@stencil/core'
 import { Editor, Extension } from '@tiptap/core'
-
+import i18next from '@/i18n'
 import {
   Bold,
   Italic,
@@ -158,6 +158,9 @@ export class XyEditor {
   componentDidLoad() {
     console.log('父生命周期：componentDidLoad')
     console.log(this.el, this.el?.shadowRoot?.querySelector('.editor-content'))
+    i18next.init({
+      lng: this.language
+    })
     if (this.el) {
       this.editor = new Editor({
         element: this.el?.shadowRoot?.querySelector('.editor-content')!, // 使用根元素获取子元素

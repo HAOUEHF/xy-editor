@@ -1,4 +1,4 @@
-import { Component, Prop, State, h, Host, Element } from '@stencil/core'
+import { Component, Prop, State, h, Host, Element, getElement } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
 import { useTooltip } from '@/hooks'
 export interface IMenuItemProps {
@@ -61,7 +61,9 @@ export class XYButtonMenu {
     const menuEl = this.el
     // console.log(menuEl)
     if (menuEl) {
-      useTooltip({ el: menuEl })
+      const xyEditor = getElement(document.querySelector('xy-editor'))
+      const theme = xyEditor.getAttribute('theme')
+      useTooltip({ el: menuEl, props: { theme } })
     }
   }
 }

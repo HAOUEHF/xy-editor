@@ -1,9 +1,9 @@
 @import url('../../node_modules/tippy.js/dist/tippy.css');
 
 .tippy-box[data-theme~='light'] {
-  .tippy-content {
-    /* background-color: #333; */
-  }
+  /* .tippy-content {
+    background-color: #333;
+  } */
   .tool-name {
     font-size: 13px;
     text-align: center;
@@ -16,9 +16,11 @@
 }
 
 .tippy-box[data-theme~='dark'] {
-  .tippy-content {
-    background-color: #fff;
-  }
+  background-color: #fff;
+  color: #000;
+  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  /* .tippy-content {
+  } */
   .tool-name {
     font-size: 13px;
     text-align: center;
@@ -26,6 +28,10 @@
   .tool-keys {
     font-size: 11px;
     text-align: center;
-    color: #bbc6ce;
+    color: #5f6265;
+  }
+  .tippy-arrow {
+    color: #fff;
+    background-color: #fff;
   }
 }
