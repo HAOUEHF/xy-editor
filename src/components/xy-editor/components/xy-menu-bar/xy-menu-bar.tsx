@@ -32,7 +32,11 @@ export class XyMenuBar {
     return (
       <Host class="editor-menu-bar">
         {this.menuBarList.map((item: any) =>
-          item.props?.icon ? <xy-button-menu menuData={item}></xy-button-menu> : null
+          item.props?.icon ? (
+            <xy-button-menu menuData={item}></xy-button-menu>
+          ) : item === '|' ? (
+            <div class="divider"></div>
+          ) : null
         )}
       </Host>
     )
@@ -108,5 +112,6 @@ export class XyMenuBar {
    */
   componentDidLoad(): void {
     this.getMenuBarList()
+    console.log(this.menuBarList)
   }
 }
