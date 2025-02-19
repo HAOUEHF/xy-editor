@@ -13,6 +13,8 @@ export namespace Components {
     interface XyButtonMenu {
         "menuData": IMenuItemProps;
     }
+    interface XyDropLink {
+    }
     interface XyEditor {
         "bubbleBar": string[];
         "content": string;
@@ -29,7 +31,7 @@ export namespace Components {
         "width"?: string | number;
     }
     interface XyMenuBar {
-        "editor"?: Editor;
+        "editor": Editor | null;
         "menuBar"?: string[];
     }
 }
@@ -39,6 +41,12 @@ declare global {
     var HTMLXyButtonMenuElement: {
         prototype: HTMLXyButtonMenuElement;
         new (): HTMLXyButtonMenuElement;
+    };
+    interface HTMLXyDropLinkElement extends Components.XyDropLink, HTMLStencilElement {
+    }
+    var HTMLXyDropLinkElement: {
+        prototype: HTMLXyDropLinkElement;
+        new (): HTMLXyDropLinkElement;
     };
     interface HTMLXyEditorElement extends Components.XyEditor, HTMLStencilElement {
     }
@@ -60,6 +68,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "xy-button-menu": HTMLXyButtonMenuElement;
+        "xy-drop-link": HTMLXyDropLinkElement;
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
         "xy-menu-bar": HTMLXyMenuBarElement;
@@ -68,6 +77,8 @@ declare global {
 declare namespace LocalJSX {
     interface XyButtonMenu {
         "menuData"?: IMenuItemProps;
+    }
+    interface XyDropLink {
     }
     interface XyEditor {
         "bubbleBar"?: string[];
@@ -85,11 +96,12 @@ declare namespace LocalJSX {
         "width"?: string | number;
     }
     interface XyMenuBar {
-        "editor"?: Editor;
+        "editor"?: Editor | null;
         "menuBar"?: string[];
     }
     interface IntrinsicElements {
         "xy-button-menu": XyButtonMenu;
+        "xy-drop-link": XyDropLink;
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
         "xy-menu-bar": XyMenuBar;
@@ -100,6 +112,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "xy-button-menu": LocalJSX.XyButtonMenu & JSXBase.HTMLAttributes<HTMLXyButtonMenuElement>;
+            "xy-drop-link": LocalJSX.XyDropLink & JSXBase.HTMLAttributes<HTMLXyDropLinkElement>;
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
             "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;

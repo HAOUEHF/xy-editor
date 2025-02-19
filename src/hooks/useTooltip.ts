@@ -1,6 +1,10 @@
 import tippy from 'tippy.js'
 
-const useTooltip = (options: any) => {
+type IUseTooltip = {
+  el: HTMLElement
+  props: any
+}
+const useTooltip = (options: IUseTooltip) => {
   const { el, props } = options
   const tooltip = tippy(el, {
     content: (reference: Element) => {

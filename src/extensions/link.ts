@@ -16,8 +16,8 @@ const Link = TipTapLink.extend<LinkOptions & { disabled: boolean }>({
         return {
           props: {
             command: (props: Props) => {
-              console.log(props);
-              
+              console.log(props)
+
               editor.chain().focus().toggleLink(props).run()
             },
             isActive: editor.isActive('link'),
@@ -28,7 +28,7 @@ const Link = TipTapLink.extend<LinkOptions & { disabled: boolean }>({
             href: editor.getAttributes('link').href || '',
             target: editor.getAttributes('link').target || null,
             rel: editor.getAttributes('link').rel || null,
-            class: editor.getAttributes('link').class || null
+            class: editor.getAttributes('link').class || null,
           }
         }
       }

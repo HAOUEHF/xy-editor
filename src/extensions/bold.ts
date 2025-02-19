@@ -6,6 +6,8 @@ const Bold = TiptapBold.extend<BoldOptions & { disabled: boolean }>({
     return {
       ...this.parent?.(),
       button({ editor, t }: { editor: Editor; t: (...args: any[]) => string }) {
+        console.log(editor.isActive('bold'));
+
         return {
           props: {
             command: () => {

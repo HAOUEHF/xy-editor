@@ -31,7 +31,7 @@
     "dev": "stencil build --dev --watch --serve",
     "test": "stencil test --spec --e2e",
     "test.watch": "stencil test --spec --e2e --watchAll",
-    "generate": "stencil generate"
+    "g": "stencil generate"
   },
   "devDependencies": {
     "@commitlint/cli": "^19.6.1",

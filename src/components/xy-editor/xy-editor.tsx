@@ -81,17 +81,6 @@ export class XyEditor {
   @State() editor?: Editor
   @State() menuBarList: string[] = []
 
-  render() {
-    return (
-      <Host class="editor-container" data-theme={this.theme}>
-        <div class="editor-header">
-          {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
-        </div>
-        <div class="editor-content"></div>
-      </Host>
-    )
-  }
-
   /**
    * 获取所有扩展
    */
@@ -138,6 +127,8 @@ export class XyEditor {
     ].filter(item => {
       return this.menuBar.includes(item.name)
     })
+    console.log('menuExtensions', menuExtensions)
+
     return [...coreExtensions, ...menuExtensions]
   }
 
@@ -174,5 +165,16 @@ export class XyEditor {
         }
       })
     }
+  }
+
+  render() {
+    return (
+      <Host class="editor-container" data-theme={this.theme}>
+        <div class="editor-header">
+          {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
+        </div>
+        <div class="editor-content"></div>
+      </Host>
+    )
   }
 }

@@ -6,4 +6,5 @@ export type XYMenuBarItem = {
   shortcutKeys: string
   disabled: boolean
   isDropdown?: boolean
+  component?: any
 }

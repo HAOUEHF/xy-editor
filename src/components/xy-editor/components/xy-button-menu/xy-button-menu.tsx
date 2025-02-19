@@ -1,8 +1,13 @@
 import { Component, Prop, State, h, Host, Element, getElement } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
-import { useTooltip } from '@/hooks'
+import { useTooltip, useDropdown } from '@/hooks'
+import { Instance, Props } from 'tippy.js'
+import { Editor } from '@tiptap/core'
 export interface IMenuItemProps {
   props: Partial<XYMenuBarItem>
+  component?: any
+  editor: Editor
+  extensionName: string
 }
 
 @Component({
@@ -10,12 +15,17 @@ export interface IMenuItemProps {
   styleUrl: 'xy-button-menu.scss'
 })
 export class XYButtonMenu {
-  @Prop() menuData: IMenuItemProps = { props: {} }
+  @Prop() menuData: IMenuItemProps = {
+    props: {},
+    component: '',
+    editor: {} as Editor,
+    extensionName: ''
+  }
 
   // 使用对象解构简化初始化
   @State() private buttonState: Pick<
     XYMenuBarItem,
-    'isActive' | 'isDropdown' | 'name' | 'shortcutKeys' | 'icon' | 'command' | 'disabled'
+    'isActive' | 'isDropdown' | 'name' | 'shortcutKeys' | 'icon' | 'command' | 'disabled' | 'component'
   > = {
     isActive: this.menuData.props?.isActive ?? false,
     isDropdown: this.menuData.props?.isDropdown ?? false,
@@ -23,40 +33,29 @@ export class XYButtonMenu {
     shortcutKeys: this.menuData.props?.shortcutKeys ?? '',
     icon: this.menuData.props?.icon ?? '',
     command: this.menuData.props?.command ?? (() => {}),
-    disabled: this.menuData.props?.disabled ?? false
+    disabled: this.menuData.props?.disabled ?? false,
+    component: this.menuData?.component ?? ''
   }
-
+  @State() isActive: boolean = false
   @Element() el!: HTMLElement
+  @State() isDropdownShow: boolean = false
+  @State() tippyDropdown!: Instance<Props>
+  @State() dropEl!: HTMLElement
 
-  render() {
-    const { isActive, isDropdown, name, shortcutKeys, icon, disabled } = this.buttonState
+  dropdownContent: HTMLElement | null = null
 
-    return (
-      <Host
-        class={{
-          'xy-button-menu': true,
-          'xy-button-menu--active': isActive,
-          'xy-button-menu--disabled': disabled
-        }}
-        data-name={name}
-        data-shortcutKeys={shortcutKeys}
-        onClick={this.handleButtonClick.bind(this)}
-      >
-        {icon && <xy-icon name={icon}></xy-icon>}
-        {isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
-      </Host>
-    )
-  }
+  private handleButtonClick = () => {
+    if (this.buttonState.disabled) return
+    this.dropEl = this.el
+    if (this.buttonState.isDropdown) {
+      this.tippyDropdown.show()
 
-  private handleButtonClick = (): void => {
-    if (this.buttonState.disabled) {
       return
     }
-
     this.buttonState.command?.()
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
     // 组件加载时的初始化逻辑
     const menuEl = this.el
     // console.log(menuEl)
@@ -64,6 +63,49 @@ export class XYButtonMenu {
       const xyEditor = getElement(document.querySelector('xy-editor'))
       const theme = xyEditor.getAttribute('theme')
       useTooltip({ el: menuEl, props: { theme } })
+
+      this.dropdownContent = getElement(this.el).querySelector('.dropdown-content')
+
+      if (this.buttonState.isDropdown && this.buttonState.component && this.dropdownContent) {
+        console.log(this.buttonState)
+        const { instanceDropdown } = useDropdown({
+          contentEl: this.dropdownContent,
+          triggerEl: this.dropdownContent,
+          customShow: (instance: Instance<Props>) => {
+            instance.setProps({
+              getReferenceClientRect: () => this.dropEl.getBoundingClientRect()
+            })
+          },
+          customHide: () => {
+            this.menuData.editor.commands.focus()
+          }
+        })
+        this.tippyDropdown = instanceDropdown
+      }
     }
+  }
+
+  render() {
+    const { isDropdown, name, shortcutKeys, icon, disabled, component } = this.buttonState
+
+    return (
+      <Host
+        class={{
+          'xy-button-menu': true,
+          'xy-button-menu--active': this.menuData.editor?.isActive(this.menuData.extensionName) ?? false,
+          'xy-button-menu--disabled': disabled
+        }}
+        data-name={name}
+        data-shortcutKeys={shortcutKeys}
+        onClick={this.handleButtonClick}
+      >
+        {icon && <xy-icon name={icon}></xy-icon>}
+
+        {isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
+        {isDropdown && component ? (
+          <div class="dropdown-content">{h(component['$tag$'], { ...component['$attrs$'] })}</div>
+        ) : null}
+      </Host>
+    )
   }
 }

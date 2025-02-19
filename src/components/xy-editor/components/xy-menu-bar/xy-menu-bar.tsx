@@ -21,25 +21,15 @@ interface MenuButtonSpec {
 })
 export class XyMenuBar {
   // 接收编辑器实例
-  @Prop() editor?: Editor
+  @Prop() editor: Editor | null = null
   // 接收菜单栏配置
   @Prop() menuBar?: string[]
 
   // 存储处理后的菜单列表
   @State() menuBarList: (MenuButtonSpec | string | undefined)[] = []
-
-  render() {
-    return (
-      <Host class="editor-menu-bar">
-        {this.menuBarList.map((item: any) =>
-          item.props?.icon ? (
-            <xy-button-menu menuData={item}></xy-button-menu>
-          ) : item === '|' ? (
-            <div class="divider"></div>
-          ) : null
-        )}
-      </Host>
-    )
+  @State() cachedMenuBarList: (MenuButtonSpec | string | undefined)[] = []
+  @State() componentsView: any = {
+    link: <xy-drop-link></xy-drop-link>
   }
 
   /**
@@ -62,6 +52,7 @@ export class XyMenuBar {
             t: $t,
             extension
           })
+          const component = this.componentsView[extension.name]
 
           // 处理返回数组的情况（一个扩展可能定义多个按钮）
           if (Array.isArray(menuBtnComponentSpec)) {
@@ -70,6 +61,7 @@ export class XyMenuBar {
               ...menuBtnComponentSpec.map(item => ({
                 ...item,
                 editor: this.editor,
+                component,
                 priority: extension.options.priority ?? 0,
                 disabled: extension.options.disabled ?? false,
                 extensionName: extension.name
@@ -83,6 +75,7 @@ export class XyMenuBar {
             {
               ...menuBtnComponentSpec,
               editor: this.editor,
+              component,
               priority: extension.options.priority ?? 0,
               disabled: extension.options.disabled ?? false,
               extensionName: extension.name
@@ -99,12 +92,17 @@ export class XyMenuBar {
    * 处理分隔符'|'并过滤出需要显示的按钮
    */
   private getMenuBarList(): void {
-    const commandButtons = this.generateCommandButton()
-
+    this.cachedMenuBarList = this.generateCommandButton()
     this.menuBarList =
       this.menuBar
-        ?.map((item: string) => (item === '|' ? item : commandButtons.find(v => v.extensionName === item)))
+        ?.map((item: string) =>
+          item === '|' ? item : this.cachedMenuBarList.find((v: any) => v.extensionName === item)
+        )
         .filter(Boolean) ?? []
+  }
+
+  handleEditorUpdate = () => {
+    this.getMenuBarList()
   }
 
   /**
@@ -112,6 +110,23 @@ export class XyMenuBar {
    */
   componentDidLoad(): void {
     this.getMenuBarList()
-    console.log(this.menuBarList)
+    if (this.editor) {
+      this.editor.on('selectionUpdate', this.handleEditorUpdate)
+      this.editor.on('update', this.handleEditorUpdate)
+    }
+  }
+
+  render() {
+    return (
+      <Host class="editor-menu-bar">
+        {this.menuBarList.map((item: any) =>
+          item.props?.icon ? (
+            <xy-button-menu menuData={item}></xy-button-menu>
+          ) : item === '|' ? (
+            <div class="divider"></div>
+          ) : null
+        )}
+      </Host>
+    )
   }
 }
