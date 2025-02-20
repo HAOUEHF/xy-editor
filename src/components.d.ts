@@ -14,6 +14,10 @@ export namespace Components {
         "menuData": IMenuItemProps;
     }
     interface XyDropLink {
+        "attrs": any;
+        "command"?: (params: { href: string; target: string }) => void;
+        "href": string;
+        "target": string;
     }
     interface XyEditor {
         "bubbleBar": string[];
@@ -35,8 +39,23 @@ export namespace Components {
         "menuBar"?: string[];
     }
 }
+export interface XyButtonMenuCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLXyButtonMenuElement;
+}
 declare global {
+    interface HTMLXyButtonMenuElementEventMap {
+        "handleCommand": any;
+    }
     interface HTMLXyButtonMenuElement extends Components.XyButtonMenu, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLXyButtonMenuElementEventMap>(type: K, listener: (this: HTMLXyButtonMenuElement, ev: XyButtonMenuCustomEvent<HTMLXyButtonMenuElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLXyButtonMenuElementEventMap>(type: K, listener: (this: HTMLXyButtonMenuElement, ev: XyButtonMenuCustomEvent<HTMLXyButtonMenuElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLXyButtonMenuElement: {
         prototype: HTMLXyButtonMenuElement;
@@ -77,8 +96,13 @@ declare global {
 declare namespace LocalJSX {
     interface XyButtonMenu {
         "menuData"?: IMenuItemProps;
+        "onHandleCommand"?: (event: XyButtonMenuCustomEvent<any>) => void;
     }
     interface XyDropLink {
+        "attrs"?: any;
+        "command"?: (params: { href: string; target: string }) => void;
+        "href"?: string;
+        "target"?: string;
     }
     interface XyEditor {
         "bubbleBar"?: string[];

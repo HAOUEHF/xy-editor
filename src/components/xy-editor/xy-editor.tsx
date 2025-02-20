@@ -141,30 +141,32 @@ export class XyEditor {
       this.editor.destroy() // 清理 editor 实例
     }
   }
-  componentWillLoad() {
+  async componentWillLoad() {
     console.log('父生命周期：componentWillLoad')
     this.getMenuBarList()
+    setTimeout(() => {
+      if (this.el) {
+        this.editor = new Editor({
+          element: this.el?.shadowRoot?.querySelector('.editor-content')!, // 使用根元素获取子元素
+          extensions: [...this.allExtensions()],
+          content: this.content,
+          editorProps: {
+            attributes: {
+              // 自定义样式
+              class: 'custom-editor'
+            }
+          }
+        })
+      }
+    }, 0)
   }
 
-  componentDidLoad() {
+  async componentDidLoad() {
     console.log('父生命周期：componentDidLoad')
     console.log(this.el, this.el?.shadowRoot?.querySelector('.editor-content'))
     i18next.init({
       lng: this.language
     })
-    if (this.el) {
-      this.editor = new Editor({
-        element: this.el?.shadowRoot?.querySelector('.editor-content')!, // 使用根元素获取子元素
-        extensions: [...this.allExtensions()],
-        content: this.content,
-        editorProps: {
-          attributes: {
-            // 自定义样式
-            class: 'custom-editor'
-          }
-        }
-      })
-    }
   }
 
   render() {

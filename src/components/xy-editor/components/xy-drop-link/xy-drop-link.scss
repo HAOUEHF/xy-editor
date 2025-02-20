@@ -1,6 +1,88 @@
 :host {
   display: block;
-  width: 200px;
-  height: 300px;
-  background-color: red;
+  .drop-content {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    .input-view {
+      display: flex;
+      flex: 1;
+      background-color: $info-color;
+      border-radius: 5px;
+      padding: 5px 8px;
+      align-items: center;
+      gap: 5px;
+      > input {
+        &:focus {
+          outline: none;
+        }
+        border: none;
+        background-color: $info-color;
+        height: 25px;
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+    .confirm {
+      border-radius: 7px;
+      padding: 5px;
+      background-color: #000;
+      color: #fff;
+      cursor: pointer;
+      height: 30px;
+      font-size: 13px;
+      font-weight: 600;
+      // 过度动画
+      transition: all 0.2s ease-in-out;
+      &:hover {
+        transform: scale(0.9);
+      }
+    }
+  }
+  .drop-switch {
+    padding: 10px 0;
+    display: flex;
+    align-items: center;
+    column-gap: 10px;
+    .switch {
+      cursor: pointer;
+    }
+    label.switch {
+      font-weight: 600;
+      font-size: 14px;
+      color: #737373;
+    }
+    button.switch {
+      width: 40px;
+      height: 20px;
+      background-color: #000;
+      display: inline-block;
+      border-radius: 20px;
+      transition: all 0.3s ease-in-out;
+      border: none;
+      padding: 0 2px;
+      .switch-btn {
+        width: 16px;
+        height: 16px;
+        background-color: #fff;
+        border-radius: 50%;
+        pointer-events: none;
+        transition: all 0.3s ease-in-out;
+        cursor: pointer;
+      }
+      &[aria-checked='true'] {
+        background-color: #000;
+        .switch-btn {
+          transform: translateX(21px);
+        }
+      }
+      &[aria-checked='false'] {
+        background-color: #d7d7d7;
+
+        .switch-btn {
+          transform: translateX(0);
+        }
+      }
+    }
+  }
 }

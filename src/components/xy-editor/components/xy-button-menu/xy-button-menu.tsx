@@ -1,4 +1,4 @@
-import { Component, Prop, State, h, Host, Element, getElement } from '@stencil/core'
+import { Component, Prop, State, h, Host, Element, getElement, Event, EventEmitter } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
 import { useTooltip, useDropdown } from '@/hooks'
 import { Instance, Props } from 'tippy.js'
@@ -44,6 +44,8 @@ export class XYButtonMenu {
 
   dropdownContent: HTMLElement | null = null
 
+  @Event()
+  handleCommand!: EventEmitter<any>
   private handleButtonClick = () => {
     if (this.buttonState.disabled) return
     this.dropEl = this.el
@@ -53,37 +55,41 @@ export class XYButtonMenu {
       return
     }
     this.buttonState.command?.()
+    this.handleCommand.emit()
   }
 
-  async componentDidLoad() {
-    // 组件加载时的初始化逻辑
-    const menuEl = this.el
-    // console.log(menuEl)
-    if (menuEl) {
-      const xyEditor = getElement(document.querySelector('xy-editor'))
-      const theme = xyEditor.getAttribute('theme')
-      useTooltip({ el: menuEl, props: { theme } })
+  componentWillLoad() {
+    setTimeout(() => {
+      // 组件加载时的初始化逻辑
+      const menuEl = this.el
+      // console.log(menuEl)
+      if (menuEl) {
+        const xyEditor = getElement(document.querySelector('xy-editor'))
+        const theme = xyEditor.getAttribute('theme')
+        useTooltip({ el: menuEl, props: { theme } })
 
-      this.dropdownContent = getElement(this.el).querySelector('.dropdown-content')
+        this.dropdownContent = getElement(this.el).querySelector('.dropdown-content')
 
-      if (this.buttonState.isDropdown && this.buttonState.component && this.dropdownContent) {
-        console.log(this.buttonState)
-        const { instanceDropdown } = useDropdown({
-          contentEl: this.dropdownContent,
-          triggerEl: this.dropdownContent,
-          customShow: (instance: Instance<Props>) => {
-            instance.setProps({
-              getReferenceClientRect: () => this.dropEl.getBoundingClientRect()
-            })
-          },
-          customHide: () => {
-            this.menuData.editor.commands.focus()
-          }
-        })
-        this.tippyDropdown = instanceDropdown
+        if (this.buttonState.isDropdown && this.buttonState.component && this.dropdownContent) {
+          console.log(this.buttonState)
+          const { instanceDropdown } = useDropdown({
+            contentEl: this.dropdownContent,
+            triggerEl: this.dropdownContent,
+            customShow: (instance: Instance<Props>) => {
+              instance.setProps({
+                getReferenceClientRect: () => this.dropEl.getBoundingClientRect()
+              })
+            },
+            customHide: () => {
+              this.menuData.editor.commands.focus()
+            }
+          })
+          this.tippyDropdown = instanceDropdown
+        }
       }
-    }
+    }, 0)
   }
+  async componentDidLoad() {}
 
   render() {
     const { isDropdown, name, shortcutKeys, icon, disabled, component } = this.buttonState
@@ -102,8 +108,9 @@ export class XYButtonMenu {
         {icon && <xy-icon name={icon}></xy-icon>}
 
         {isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
+        {/* attrs: component['$attrs$'] */}
         {isDropdown && component ? (
-          <div class="dropdown-content">{h(component['$tag$'], { ...component['$attrs$'] })}</div>
+          <div class="dropdown-content">{h(component['$tag$'], { attrs: { ...this.buttonState } })}</div>
         ) : null}
       </Host>
     )

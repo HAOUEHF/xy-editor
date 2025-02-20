@@ -1,4 +1,4 @@
-import { Component, Prop, State, h, Host } from '@stencil/core'
+import { Component, Prop, State, h, Host, Listen } from '@stencil/core'
 import type { Editor } from '@tiptap/core'
 import { $t } from '@/i18n'
 
@@ -105,11 +105,17 @@ export class XyMenuBar {
     this.getMenuBarList()
   }
 
+  @Listen('handleCommand')
+  handleCommand() {
+    this.getMenuBarList()
+  }
+  async componentWillLoad() {
+    this.getMenuBarList()
+  }
   /**
    * 组件加载完成后初始化菜单列表
    */
-  componentDidLoad(): void {
-    this.getMenuBarList()
+  async componentDidLoad() {
     if (this.editor) {
       this.editor.on('selectionUpdate', this.handleEditorUpdate)
       this.editor.on('update', this.handleEditorUpdate)
