@@ -7,17 +7,23 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 import { Editor } from "@tiptap/core";
+import { XYMenuBarItem } from "./types/XYButtonMenu";
 export { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 export { Editor } from "@tiptap/core";
+export { XYMenuBarItem } from "./types/XYButtonMenu";
 export namespace Components {
     interface XyButtonMenu {
         "menuData": IMenuItemProps;
     }
+    interface XyColorPicker {
+    }
     interface XyDropLink {
-        "attrs": any;
-        "command"?: (params: { href: string; target: string }) => void;
-        "href": string;
-        "target": string;
+        "attrs": | (XYMenuBarItem & {
+        href: string
+        target: string
+        rel: string
+      })
+    | null;
     }
     interface XyEditor {
         "bubbleBar": string[];
@@ -61,6 +67,12 @@ declare global {
         prototype: HTMLXyButtonMenuElement;
         new (): HTMLXyButtonMenuElement;
     };
+    interface HTMLXyColorPickerElement extends Components.XyColorPicker, HTMLStencilElement {
+    }
+    var HTMLXyColorPickerElement: {
+        prototype: HTMLXyColorPickerElement;
+        new (): HTMLXyColorPickerElement;
+    };
     interface HTMLXyDropLinkElement extends Components.XyDropLink, HTMLStencilElement {
     }
     var HTMLXyDropLinkElement: {
@@ -87,6 +99,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "xy-button-menu": HTMLXyButtonMenuElement;
+        "xy-color-picker": HTMLXyColorPickerElement;
         "xy-drop-link": HTMLXyDropLinkElement;
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
@@ -98,11 +111,15 @@ declare namespace LocalJSX {
         "menuData"?: IMenuItemProps;
         "onHandleCommand"?: (event: XyButtonMenuCustomEvent<any>) => void;
     }
+    interface XyColorPicker {
+    }
     interface XyDropLink {
-        "attrs"?: any;
-        "command"?: (params: { href: string; target: string }) => void;
-        "href"?: string;
-        "target"?: string;
+        "attrs"?: | (XYMenuBarItem & {
+        href: string
+        target: string
+        rel: string
+      })
+    | null;
     }
     interface XyEditor {
         "bubbleBar"?: string[];
@@ -125,6 +142,7 @@ declare namespace LocalJSX {
     }
     interface IntrinsicElements {
         "xy-button-menu": XyButtonMenu;
+        "xy-color-picker": XyColorPicker;
         "xy-drop-link": XyDropLink;
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
@@ -136,6 +154,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "xy-button-menu": LocalJSX.XyButtonMenu & JSXBase.HTMLAttributes<HTMLXyButtonMenuElement>;
+            "xy-color-picker": LocalJSX.XyColorPicker & JSXBase.HTMLAttributes<HTMLXyColorPickerElement>;
             "xy-drop-link": LocalJSX.XyDropLink & JSXBase.HTMLAttributes<HTMLXyDropLinkElement>;
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;

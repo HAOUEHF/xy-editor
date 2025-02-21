@@ -1,4 +1,5 @@
-export type XYMenuBarItem = {
+import type { VNode } from '@stencil/core'
+export interface XYMenuBarItem {
   command: Function
   isActive: boolean
   icon: string
@@ -6,5 +7,5 @@ export type XYMenuBarItem = {
   shortcutKeys: string
   disabled: boolean
   isDropdown?: boolean
-  component?: any
+  component?: VNode
 }

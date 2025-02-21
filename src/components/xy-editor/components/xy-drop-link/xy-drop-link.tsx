@@ -1,33 +1,38 @@
 import { Component, Host, h, Prop, State, Element, Watch } from '@stencil/core'
 import { $t } from '@/i18n'
-
+import type { XYMenuBarItem } from '@/types/XYButtonMenu'
 @Component({
   tag: 'xy-drop-link',
   styleUrl: 'xy-drop-link.scss',
-  shadow: true
 })
 export class XyDropLink {
   @Element() el!: HTMLElement
 
-  // Props 需要根据实际业务定义
-  @Prop() href: string = ''
-  @Prop() target: string = '_blank'
-  @Prop() command?: (params: { href: string; target: string }) => void
-  @Prop() attrs: any = {}
+  @Prop() attrs:
+    | (XYMenuBarItem & {
+        href: string
+        target: string
+        rel: string
+      })
+    | null = null
+  @State() href: string = ''
+  @State() target: string = '_blank'
+  @State() rel: string = 'noopener noreferrer'
   @State() switchValue: string = 'off'
   private linkInput: HTMLInputElement | null = null
-  componentDidLoad() {
+  async componentDidLoad() {
     this.setupSwitch()
-    console.log(this)
   }
-
+  componentWillLoad() {
+    if (this.attrs) {
+      this.href = this.attrs.href
+      this.target = this.attrs.target
+      this.rel = this.attrs.rel
+    }
+  }
   private setupSwitch() {
-    console.log(this.el?.shadowRoot?.querySelector('#switch'))
-
     if (this.el.shadowRoot) {
       const switchBtn = this.el.shadowRoot.querySelector('#switch')
-      console.log(switchBtn)
-
       if (switchBtn) {
         switchBtn.addEventListener('click', this.handleSwitchClick)
       }
@@ -35,8 +40,6 @@ export class XyDropLink {
   }
 
   private handleSwitchClick = (event: Event) => {
-    console.log(event)
-
     const el = event.currentTarget as HTMLButtonElement
     const isChecked = el.getAttribute('aria-checked') === 'true'
     el.setAttribute('aria-checked', (!isChecked).toString())
@@ -56,11 +59,13 @@ export class XyDropLink {
     console.log(this.linkInput?.value)
 
     if (!this.linkInput?.value) return
-    if (this.attrs.command) {
+    if (this.attrs?.command) {
       this.attrs.command({
         href: this.linkInput.value,
         target: this.switchValue === 'off' ? '_blank' : ''
       })
+      this.linkInput.value = ''
+      this.switchValue = 'off'
     }
   }
 
@@ -69,7 +74,7 @@ export class XyDropLink {
       <Host class="xy-drop-link">
         <div class="drop-content">
           <div class="input-view">
-            <link-icon></link-icon>
+            <xy-icon name="LinkIcon"></xy-icon>
             <input
               id="linkEl"
               type="text"

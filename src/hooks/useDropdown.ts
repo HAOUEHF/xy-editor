@@ -32,8 +32,6 @@ const useDropdown = (options: Options) => {
       isShowInProgress = true // 标记 show 操作开始
       if (customShow) {
         customShow(instance)
-        console.log('customShow');
-
       }
       isShowInProgress = false // 操作完成后重置标志
     },
@@ -42,8 +40,6 @@ const useDropdown = (options: Options) => {
       isHideInProgress = true // 标记 hide 操作开始
       if (customHide) {
         customHide(instance)
-        console.log('customHide');
-
       }
       isHideInProgress = false // 操作完成后重置标志
     },

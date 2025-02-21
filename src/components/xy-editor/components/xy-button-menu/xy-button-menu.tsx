@@ -49,7 +49,9 @@ export class XYButtonMenu {
   private handleButtonClick = () => {
     if (this.buttonState.disabled) return
     this.dropEl = this.el
-    if (this.buttonState.isDropdown) {
+    if (this.buttonState.isDropdown && this.tippyDropdown) {
+      console.log('dropdownContent', this.tippyDropdown);
+
       this.tippyDropdown.show()
 
       return
@@ -106,11 +108,9 @@ export class XYButtonMenu {
         onClick={this.handleButtonClick}
       >
         {icon && <xy-icon name={icon}></xy-icon>}
-
         {isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
-        {/* attrs: component['$attrs$'] */}
         {isDropdown && component ? (
-          <div class="dropdown-content">{h(component['$tag$'], { attrs: { ...this.buttonState } })}</div>
+          <div class="dropdown-content">{h(component['$tag$'], { attrs: { ...this.menuData.props }, name: this.menuData.extensionName })}</div>
         ) : null}
       </Host>
     )

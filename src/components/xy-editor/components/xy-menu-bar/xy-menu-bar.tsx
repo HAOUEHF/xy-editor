@@ -29,7 +29,9 @@ export class XyMenuBar {
   @State() menuBarList: (MenuButtonSpec | string | undefined)[] = []
   @State() cachedMenuBarList: (MenuButtonSpec | string | undefined)[] = []
   @State() componentsView: any = {
-    link: <xy-drop-link></xy-drop-link>
+    link: <xy-drop-link></xy-drop-link>,
+    fontColor: <xy-color-picker></xy-color-picker>,
+    highlight: <xy-color-picker></xy-color-picker>
   }
 
   /**
