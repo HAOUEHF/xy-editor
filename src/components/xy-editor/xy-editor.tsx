@@ -11,6 +11,7 @@ import {
   Subscript,
   Superscript,
   CodeLine,
+  // CodeBlock,
   Link,
   Heading,
   Paragraph,
@@ -32,6 +33,7 @@ import {
   FullScreen,
   Placeholder
 } from '@/extensions/index'
+
 @Component({
   tag: 'xy-editor',
   styleUrl: 'xy-editor.scss',
@@ -48,10 +50,10 @@ export class XyEditor {
     'subscript',
     'superscript',
     'link',
-    // '|',
+    '|',
     // 'heading',
     // 'fontFamily',
-    '|',
+    // '|',
     'highlight',
     'fontColor',
     '|',
@@ -100,6 +102,7 @@ export class XyEditor {
       ListItem,
       TaskItem
     ]
+
     // 菜单扩展
     const menuExtensions = [
       Bold,

@@ -16,6 +16,9 @@ export namespace Components {
         "menuData": IMenuItemProps;
     }
     interface XyColorPicker {
+        "attrs": any;
+        "color": Object | string;
+        "presetColors": Array<string>;
     }
     interface XyDropLink {
         "attrs": | (XYMenuBarItem & {
@@ -44,10 +47,21 @@ export namespace Components {
         "editor": Editor | null;
         "menuBar"?: string[];
     }
+    interface XySelect {
+        "activeValue": any;
+        "attrs": any;
+        "disabled": boolean;
+        "groupField": string;
+        "groupLabel": string;
+    }
 }
 export interface XyButtonMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLXyButtonMenuElement;
+}
+export interface XyColorPickerCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLXyColorPickerElement;
 }
 declare global {
     interface HTMLXyButtonMenuElementEventMap {
@@ -67,7 +81,23 @@ declare global {
         prototype: HTMLXyButtonMenuElement;
         new (): HTMLXyButtonMenuElement;
     };
+    interface HTMLXyColorPickerElementEventMap {
+        "colorChange": {
+    r: number
+    g: number
+    b: number
+    a: number
+  };
+    }
     interface HTMLXyColorPickerElement extends Components.XyColorPicker, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLXyColorPickerElementEventMap>(type: K, listener: (this: HTMLXyColorPickerElement, ev: XyColorPickerCustomEvent<HTMLXyColorPickerElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLXyColorPickerElementEventMap>(type: K, listener: (this: HTMLXyColorPickerElement, ev: XyColorPickerCustomEvent<HTMLXyColorPickerElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLXyColorPickerElement: {
         prototype: HTMLXyColorPickerElement;
@@ -97,6 +127,12 @@ declare global {
         prototype: HTMLXyMenuBarElement;
         new (): HTMLXyMenuBarElement;
     };
+    interface HTMLXySelectElement extends Components.XySelect, HTMLStencilElement {
+    }
+    var HTMLXySelectElement: {
+        prototype: HTMLXySelectElement;
+        new (): HTMLXySelectElement;
+    };
     interface HTMLElementTagNameMap {
         "xy-button-menu": HTMLXyButtonMenuElement;
         "xy-color-picker": HTMLXyColorPickerElement;
@@ -104,6 +140,7 @@ declare global {
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
         "xy-menu-bar": HTMLXyMenuBarElement;
+        "xy-select": HTMLXySelectElement;
     }
 }
 declare namespace LocalJSX {
@@ -112,6 +149,15 @@ declare namespace LocalJSX {
         "onHandleCommand"?: (event: XyButtonMenuCustomEvent<any>) => void;
     }
     interface XyColorPicker {
+        "attrs"?: any;
+        "color"?: Object | string;
+        "onColorChange"?: (event: XyColorPickerCustomEvent<{
+    r: number
+    g: number
+    b: number
+    a: number
+  }>) => void;
+        "presetColors"?: Array<string>;
     }
     interface XyDropLink {
         "attrs"?: | (XYMenuBarItem & {
@@ -140,6 +186,13 @@ declare namespace LocalJSX {
         "editor"?: Editor | null;
         "menuBar"?: string[];
     }
+    interface XySelect {
+        "activeValue"?: any;
+        "attrs"?: any;
+        "disabled"?: boolean;
+        "groupField"?: string;
+        "groupLabel"?: string;
+    }
     interface IntrinsicElements {
         "xy-button-menu": XyButtonMenu;
         "xy-color-picker": XyColorPicker;
@@ -147,6 +200,7 @@ declare namespace LocalJSX {
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
         "xy-menu-bar": XyMenuBar;
+        "xy-select": XySelect;
     }
 }
 export { LocalJSX as JSX };
@@ -159,6 +213,7 @@ declare module "@stencil/core" {
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
             "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;
+            "xy-select": LocalJSX.XySelect & JSXBase.HTMLAttributes<HTMLXySelectElement>;
         }
     }
 }

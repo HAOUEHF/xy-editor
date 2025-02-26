@@ -31,7 +31,8 @@ export class XyMenuBar {
   @State() componentsView: any = {
     link: <xy-drop-link></xy-drop-link>,
     fontColor: <xy-color-picker></xy-color-picker>,
-    highlight: <xy-color-picker></xy-color-picker>
+    highlight: <xy-color-picker></xy-color-picker>,
+    lineHeight: <xy-select></xy-select>
   }
 
   /**
@@ -54,6 +55,7 @@ export class XyMenuBar {
             t: $t,
             extension
           })
+
           const component = this.componentsView[extension.name]
 
           // 处理返回数组的情况（一个扩展可能定义多个按钮）
@@ -66,7 +68,7 @@ export class XyMenuBar {
                 component,
                 priority: extension.options.priority ?? 0,
                 disabled: extension.options.disabled ?? false,
-                extensionName: extension.name
+                extensionName: extension.name,
               }))
             ]
           }
@@ -80,7 +82,7 @@ export class XyMenuBar {
               component,
               priority: extension.options.priority ?? 0,
               disabled: extension.options.disabled ?? false,
-              extensionName: extension.name
+              extensionName: extension.name,
             }
           ]
         }, [])
@@ -105,6 +107,7 @@ export class XyMenuBar {
 
   handleEditorUpdate = () => {
     this.getMenuBarList()
+
   }
 
   @Listen('handleCommand')

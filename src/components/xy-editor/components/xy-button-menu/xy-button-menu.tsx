@@ -50,12 +50,13 @@ export class XYButtonMenu {
     if (this.buttonState.disabled) return
     this.dropEl = this.el
     if (this.buttonState.isDropdown && this.tippyDropdown) {
-      console.log('dropdownContent', this.tippyDropdown);
+      console.log('dropdownContent', this.tippyDropdown)
 
       this.tippyDropdown.show()
 
       return
     }
+
     this.buttonState.command?.()
     this.handleCommand.emit()
   }
@@ -100,7 +101,7 @@ export class XYButtonMenu {
       <Host
         class={{
           'xy-button-menu': true,
-          'xy-button-menu--active': this.menuData.editor?.isActive(this.menuData.extensionName) ?? false,
+          'xy-button-menu--active': this.menuData.props.isActive ?? false,
           'xy-button-menu--disabled': disabled
         }}
         data-name={name}
@@ -110,7 +111,9 @@ export class XYButtonMenu {
         {icon && <xy-icon name={icon}></xy-icon>}
         {isDropdown && <xy-icon name="DownIcon" width={10} height={10}></xy-icon>}
         {isDropdown && component ? (
-          <div class="dropdown-content">{h(component['$tag$'], { attrs: { ...this.menuData.props }, name: this.menuData.extensionName })}</div>
+          <div class="dropdown-content">
+            {h(component['$tag$'], { attrs: { ...this.menuData.props }, name: this.menuData.extensionName })}
+          </div>
         ) : null}
       </Host>
     )

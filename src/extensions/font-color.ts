@@ -19,6 +19,8 @@ const FontColor = Extension.create({
           props: {
             command: (val: string) => {
               editor.chain().focus().setFontColor(val).run()
+              console.log(editor.isActive('textStyle'));
+
             },
             unsetCommand: () => editor.chain().focus().unsetFontColor().run(),
             isActive: editor.isActive('textStyle'),

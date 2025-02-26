@@ -1,13 +1,13 @@
 import { Editor } from '@tiptap/core'
 import TiptapCodeBlockLowlight, { CodeBlockLowlightOptions } from '@tiptap/extension-code-block-lowlight'
 
-import { createLowlight, common } from 'lowlight'
+// import { createLowlight, common } from 'lowlight'
 
 const CodeBlock = TiptapCodeBlockLowlight.extend<CodeBlockLowlightOptions & { disabled: boolean }>({
   addOptions() {
     return {
       ...this.parent?.(),
-      lowlight: createLowlight(common),
+      // lowlight: createLowlight(common),
       // defaultLanguage: 'js',
       // defaultLanguagesData: ['js', 'css', 'html', 'php', 'python', 'java', 'c', 'go'],
       button({ editor, t }: { editor: Editor; t: (...args: any[]) => string }) {

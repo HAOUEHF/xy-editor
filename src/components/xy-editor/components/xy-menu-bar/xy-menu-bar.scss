@@ -6,7 +6,8 @@
   flex-wrap: wrap;
   .divider {
     height: 30px;
-    width: 1px;
+    width: 2px;
+    transform: scale(0.5, 1);
     background-color: var(--divider-bg-color);
   }
 }

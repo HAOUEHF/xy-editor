@@ -1,0 +1,83 @@
+.xy-select {
+  display: flex;
+  flex-direction: column;
+
+  // 公共项样式
+  &-item {
+    min-width: 60px;
+    padding: 0 5px;
+    min-height: 25px;
+    text-align: center;
+    border-radius: 4px;
+    cursor: pointer;
+    font: {
+      size: 14px;
+      weight: 600;
+    }
+    transition: all 0.2s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+
+    &:hover {
+      background-color: $hover-bg-color;
+    }
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    // 标题级别
+    $levels: (
+      h1: 22px,
+      h2: 20px,
+      h3: 18px,
+      h4: 16px,
+      h5: 14px,
+      h6: 12px
+    );
+
+    @each $name, $size in $levels {
+      &.#{$name}-level {
+        font-size: $size;
+      }
+    }
+
+    // 激活状态
+    &.is-active {
+      background-color: $icon-active-color;
+      color: $primary-color;
+    }
+  }
+
+  // 分组样式
+  .select-group {
+    // 分组间分隔线
+    + .select-group::before {
+      content: '';
+      display: block;
+      height: 2px;
+      background-color: #e0e0e0;
+      margin: 5px 0;
+      transform: scale(1, 0.5);
+    }
+
+    &:last-child {
+      margin-bottom: 5px;
+    }
+
+    .group-title {
+      color: #71717a;
+      font-size: 12px;
+      padding: 5px 0;
+      position: relative;
+    }
+
+    // 继承公共项样式
+    .xy-select-item {
+      @extend .xy-select-item;
+      margin-bottom: 5px; // 分组内项间距微调
+    }
+  }
+}
