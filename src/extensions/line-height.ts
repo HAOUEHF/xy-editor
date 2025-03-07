@@ -1,5 +1,6 @@
 import { Extension, Attributes, Editor } from '@tiptap/core'
 import { useLineHeight } from '@/hooks/index'
+import { h } from '@stencil/core'
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     lineHeight: {
@@ -66,10 +67,7 @@ const LineHeight = Extension.create({
             //   }
             // ],
             options: [
-              {
-                label: '1.0',
-                value: '1'
-              },
+              { label: '1.0', value: '1', component: h('xy-icon', { name: 'BoldIcon'} ) },
               { label: '1.5', value: '1.5' },
               { label: '2.0', value: '2' },
               { label: '2.5', value: '2.5' },

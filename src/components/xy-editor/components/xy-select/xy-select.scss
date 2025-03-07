@@ -4,7 +4,7 @@
 
   // 公共项样式
   &-item {
-    min-width: 60px;
+    min-width: 90px;
     padding: 0 5px;
     min-height: 25px;
     text-align: center;
@@ -19,7 +19,11 @@
     align-items: center;
     justify-content: center;
     margin-bottom: 5px;
-
+    position: relative;
+    .arrow-right{
+      position: absolute;
+      right: 5px;
+    }
     &:hover {
       background-color: $hover-bg-color;
     }
