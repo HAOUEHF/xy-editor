@@ -13,6 +13,8 @@
   --color-0-01: rgba(0, 0, 0, 0.1);
   --color-255-01: rgba(255, 255, 255, 0.1);
   --color-d4eaff: #d4eaff;
+  --color-414243: #414243;
+  --color-e4e7ed: #e4e7ed;
 }
 
 :host([data-theme='light']) {
@@ -27,6 +29,7 @@
   --focus-color: var(--color-d4eaff);
   --caret-color: var(--bg-color-black);
   --divider-bg-color: rgb(229, 229, 229);
+  --border-color: var(--color-e4e7ed);
 }
 
 :host([data-theme='dark']) {
@@ -40,4 +43,5 @@
   --card-bs-color: var(--color-255-01);
   --caret-color: var(--bg-color-white);
   --divider-bg-color: rgb(255, 255, 255);
+  --border-color: var(--color-414243);
 }

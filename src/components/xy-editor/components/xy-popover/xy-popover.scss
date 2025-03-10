@@ -1,0 +1,38 @@
+.xy-popover {
+  display: inline-block;
+
+  .xy-popover-trigger {
+    width: fit-content;
+  }
+  .xy-popover-wrapper {
+    width: max-content;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-color);
+    padding: 10px;
+    border-radius: 4px;
+    /* 新增入口动画：淡入并由小变大 */
+    animation: fadeInScale 0.4s ease-out forwards;
+    box-shadow: 0 2px 12px 0 var(--card-bs-color);
+    border: 1px solid var(--border-color);
+    .xy-popover-arrow {
+      position: absolute;
+      background-color: var(--bg-color);
+      width: 8px;
+      height: 8px;
+      transform: rotate(45deg);
+    }
+  }
+}
+/* 定义淡入缩放动画 */
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}

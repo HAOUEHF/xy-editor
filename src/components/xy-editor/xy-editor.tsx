@@ -171,7 +171,8 @@ export class XyEditor {
       lng: this.language
     })
   }
-
+  @State() val = 'Hello World!'
+  @State() num = 0
   render() {
     return (
       <Host class="editor-container" data-theme={this.theme}>

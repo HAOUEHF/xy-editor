@@ -8,9 +8,11 @@ import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 import { Editor } from "@tiptap/core";
 import { XYMenuBarItem } from "./types/XYButtonMenu";
+import { Placement } from "@floating-ui/dom";
 export { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 export { Editor } from "@tiptap/core";
 export { XYMenuBarItem } from "./types/XYButtonMenu";
+export { Placement } from "@floating-ui/dom";
 export namespace Components {
     interface XyButtonMenu {
         "menuData": IMenuItemProps;
@@ -46,6 +48,12 @@ export namespace Components {
     interface XyMenuBar {
         "editor": Editor | null;
         "menuBar"?: string[];
+    }
+    interface XyPopover {
+        "initialOpen": boolean;
+        "modal": boolean;
+        "placement": Placement;
+        "trigger": 'click' | 'hover';
     }
     interface XySelect {
         "activeValue": any;
@@ -127,6 +135,12 @@ declare global {
         prototype: HTMLXyMenuBarElement;
         new (): HTMLXyMenuBarElement;
     };
+    interface HTMLXyPopoverElement extends Components.XyPopover, HTMLStencilElement {
+    }
+    var HTMLXyPopoverElement: {
+        prototype: HTMLXyPopoverElement;
+        new (): HTMLXyPopoverElement;
+    };
     interface HTMLXySelectElement extends Components.XySelect, HTMLStencilElement {
     }
     var HTMLXySelectElement: {
@@ -140,6 +154,7 @@ declare global {
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
         "xy-menu-bar": HTMLXyMenuBarElement;
+        "xy-popover": HTMLXyPopoverElement;
         "xy-select": HTMLXySelectElement;
     }
 }
@@ -186,6 +201,12 @@ declare namespace LocalJSX {
         "editor"?: Editor | null;
         "menuBar"?: string[];
     }
+    interface XyPopover {
+        "initialOpen"?: boolean;
+        "modal"?: boolean;
+        "placement"?: Placement;
+        "trigger"?: 'click' | 'hover';
+    }
     interface XySelect {
         "activeValue"?: any;
         "attrs"?: any;
@@ -200,6 +221,7 @@ declare namespace LocalJSX {
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
         "xy-menu-bar": XyMenuBar;
+        "xy-popover": XyPopover;
         "xy-select": XySelect;
     }
 }
@@ -213,6 +235,7 @@ declare module "@stencil/core" {
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
             "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;
+            "xy-popover": LocalJSX.XyPopover & JSXBase.HTMLAttributes<HTMLXyPopoverElement>;
             "xy-select": LocalJSX.XySelect & JSXBase.HTMLAttributes<HTMLXySelectElement>;
         }
     }
