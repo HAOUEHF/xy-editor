@@ -1,4 +1,4 @@
-import { Component, Prop, State, Host, h, Element, Watch, Method, getElement } from '@stencil/core'
+import { Component, Prop, State, Host, h, Element, Watch, Method, getElement, Listen } from '@stencil/core'
 import { computePosition, autoUpdate, offset, flip, shift, arrow, limitShift } from '@floating-ui/dom'
 import { remToPx } from '@/utils'
 import { STATIC_SIDE_MAP, ARROW_BORDER_CONFIG } from '@/constants'
@@ -124,6 +124,11 @@ export class XyDropdown {
     if (!path.includes(this.el)) {
       this.open = false
     }
+  }
+
+  @Listen('dropdownItemClick')
+  listenClick() {
+    this.open = false
   }
 
   /**

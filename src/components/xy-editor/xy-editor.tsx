@@ -179,11 +179,11 @@ export class XyEditor {
           {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
         </div>
         <div class="editor-content"></div> */}
-        <xy-popover trigger="hover">
+        <xy-popover>
           <button slot="trigger">trigger</button>
           <div>hello world</div>
         </xy-popover>
-        <xy-dropdown trigger='hover'>
+        <xy-dropdown>
           <button>Dropdown List</button>
           <xy-dropdown-menu slot="dropdown">
             <xy-dropdown-group label="Group 1">

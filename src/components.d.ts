@@ -88,6 +88,10 @@ export interface XyColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLXyColorPickerElement;
 }
+export interface XyDropdownItemCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLXyDropdownItemElement;
+}
 declare global {
     interface HTMLXyButtonMenuElementEventMap {
         "handleCommand": any;
@@ -146,7 +150,18 @@ declare global {
         prototype: HTMLXyDropdownGroupElement;
         new (): HTMLXyDropdownGroupElement;
     };
+    interface HTMLXyDropdownItemElementEventMap {
+        "dropdownItemClick": void;
+    }
     interface HTMLXyDropdownItemElement extends Components.XyDropdownItem, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLXyDropdownItemElementEventMap>(type: K, listener: (this: HTMLXyDropdownItemElement, ev: XyDropdownItemCustomEvent<HTMLXyDropdownItemElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLXyDropdownItemElementEventMap>(type: K, listener: (this: HTMLXyDropdownItemElement, ev: XyDropdownItemCustomEvent<HTMLXyDropdownItemElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLXyDropdownItemElement: {
         prototype: HTMLXyDropdownItemElement;
@@ -237,6 +252,7 @@ declare namespace LocalJSX {
     interface XyDropdownItem {
         "disabled"?: boolean;
         "icon"?: string;
+        "onDropdownItemClick"?: (event: XyDropdownItemCustomEvent<void>) => void;
     }
     interface XyDropdownMenu {
     }
