@@ -1,36 +1,29 @@
-import { Component, h, State, Prop, Element, Watch, Host, Method, getElement } from '@stencil/core'
+import { Component, Prop, State, Host, h, Element, Watch, Method, getElement } from '@stencil/core'
 import { computePosition, autoUpdate, offset, flip, shift, arrow, limitShift } from '@floating-ui/dom'
 import { remToPx } from '@/utils'
 import { STATIC_SIDE_MAP, ARROW_BORDER_CONFIG } from '@/constants'
 import type { Placement } from '@floating-ui/dom'
 import type { StaticSide } from '@/types/XYPopover'
-
 @Component({
-  tag: 'xy-popover',
-  styleUrl: 'xy-popover.scss' // 可根据需要定义样式
+  tag: 'xy-dropdown',
+  styleUrl: 'xy-dropdown.scss'
 })
-export class XyPopover {
+export class XyDropdown {
   @Element() el!: HTMLElement
 
   // 组件可配置的属性
   @Prop() placement: Placement = 'bottom' // 弹出层位置，可选值：top、bottom、left、right 等
   @Prop() trigger: 'click' | 'hover' = 'click' // 触发方式，可选值：click、hover 等
-  @Prop() content: string = '' // 弹出层内容
 
-  // 内部状态
-  @State() open: boolean = false // 当前是否打开
+  @State() open: boolean = false
   @State() x: number = 0 // 弹出层水平位置
   @State() y: number = 0 // 弹出层垂直位置
-  @State() isHovering: boolean = false // 是否正在悬停
-  // DOM 引用
-  private triggerEl?: HTMLElement // 触发按钮元素
+  @State() isHovering: boolean = false // 是否处于悬停状态
+  private triggerEl?: HTMLElement
   private floatingEl?: HTMLElement // 弹出层元素
   private arrowEl?: HTMLElement // 箭头元素
   private cleanupAutoUpdate?: () => void // 用于清理 autoUpdate 的函数
 
-  /**
-   * 切换弹出层的显示状态
-   */
   @Method()
   async toggleOpen() {
     this.open = !this.open
@@ -52,9 +45,7 @@ export class XyPopover {
       }, 200)
     }
   }
-  /**
-   * 更新弹出层的位置，使用 Floating UI 的 computePosition 计算位置
-   */
+
   updatePosition = () => {
     setTimeout(async () => {
       if (this.triggerEl && this.floatingEl) {
@@ -73,7 +64,6 @@ export class XyPopover {
         })
         this.x = x
         this.y = y
-
         // 如果中间件返回了箭头的偏移数据，则更新箭头样式
         const arrowData = middlewareData.arrow
         if (arrowData && this.arrowEl) {
@@ -157,29 +147,30 @@ export class XyPopover {
     }
     document.removeEventListener('click', this.handleOutsideClick, true)
   }
-
   render() {
     return (
-      <Host class="xy-popover" data-placement={this.placement} data-open={this.open ? 'true' : 'false'}>
+      <Host class="xy-dropdown" data-placement={this.placement} data-open={this.open ? 'true' : 'false'}>
         <div
-          class="xy-popover-trigger"
+          class="xy-dropdown-trigger"
           ref={el => (this.triggerEl = el)}
           onClick={this.trigger === 'click' ? () => this.toggleOpen() : undefined}
           onMouseEnter={this.handleOnMouseEnter}
           onMouseLeave={this.handleOnMouseLeave}
         >
-          <slot name="trigger"></slot>
+          <slot></slot>
         </div>
         {this.open && (
           <div
-            class="xy-popover-wrapper"
+            class="xy-dropdown-wrapper"
             ref={el => (this.floatingEl = el)}
             style={{ left: `${this.x}px`, top: `${this.y}px` }}
             onMouseEnter={this.handleOnMouseEnter}
             onMouseLeave={this.handleOnMouseLeave}
           >
-            <div class="xy-popover-content">{this.content ? this.content : <slot></slot>}</div>
-            <div class="xy-popover-arrow" ref={el => (this.arrowEl = el)}></div>
+            <div class="xy-dropdown-content">
+              <slot name="dropdown"></slot>
+            </div>
+            <div class="xy-dropdown-arrow" ref={el => (this.arrowEl = el)}></div>
           </div>
         )}
       </Host>

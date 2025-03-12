@@ -145,7 +145,7 @@ export class XyEditor {
     }
   }
   async componentWillLoad() {
-    console.log('父生命周期：componentWillLoad')
+    console.log('父生命周期：componentWillLoad', this)
     this.getMenuBarList()
     setTimeout(() => {
       if (this.el) {
@@ -171,15 +171,39 @@ export class XyEditor {
       lng: this.language
     })
   }
-  @State() val = 'Hello World!'
-  @State() num = 0
+
   render() {
     return (
       <Host class="editor-container" data-theme={this.theme}>
-        <div class="editor-header">
+        {/* <div class="editor-header">
           {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
         </div>
-        <div class="editor-content"></div>
+        <div class="editor-content"></div> */}
+        <xy-popover trigger="hover">
+          <button slot="trigger">trigger</button>
+          <div>hello world</div>
+        </xy-popover>
+        <xy-dropdown trigger='hover'>
+          <button>Dropdown List</button>
+          <xy-dropdown-menu slot="dropdown">
+            <xy-dropdown-group label="Group 1">
+              <xy-dropdown-item icon="BoldIcon">Item 1</xy-dropdown-item>
+              <xy-dropdown-item disabled={true}>Item 2</xy-dropdown-item>
+            </xy-dropdown-group>
+            <xy-dropdown-group label="Group 2">
+              <xy-dropdown-item>Item 3</xy-dropdown-item>
+              <xy-popover trigger="hover" placement='right'>
+                <xy-dropdown-item slot="trigger">trigger</xy-dropdown-item>
+                <div>
+                  <xy-dropdown-group label="Group 1">
+                    <xy-dropdown-item icon="BoldIcon">Item 1</xy-dropdown-item>
+                    <xy-dropdown-item disabled={true}>Item 2</xy-dropdown-item>
+                  </xy-dropdown-group>
+                </div>
+              </xy-popover>
+            </xy-dropdown-group>
+          </xy-dropdown-menu>
+        </xy-dropdown>
       </Host>
     )
   }

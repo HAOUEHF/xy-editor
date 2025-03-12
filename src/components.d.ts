@@ -30,6 +30,20 @@ export namespace Components {
       })
     | null;
     }
+    interface XyDropdown {
+        "placement": Placement;
+        "toggleOpen": () => Promise<void>;
+        "trigger": 'click' | 'hover';
+    }
+    interface XyDropdownGroup {
+        "label": string;
+    }
+    interface XyDropdownItem {
+        "disabled": boolean;
+        "icon": string;
+    }
+    interface XyDropdownMenu {
+    }
     interface XyEditor {
         "bubbleBar": string[];
         "content": string;
@@ -50,9 +64,12 @@ export namespace Components {
         "menuBar"?: string[];
     }
     interface XyPopover {
-        "initialOpen": boolean;
-        "modal": boolean;
+        "content": string;
         "placement": Placement;
+        /**
+          * 切换弹出层的显示状态
+         */
+        "toggleOpen": () => Promise<void>;
         "trigger": 'click' | 'hover';
     }
     interface XySelect {
@@ -117,6 +134,30 @@ declare global {
         prototype: HTMLXyDropLinkElement;
         new (): HTMLXyDropLinkElement;
     };
+    interface HTMLXyDropdownElement extends Components.XyDropdown, HTMLStencilElement {
+    }
+    var HTMLXyDropdownElement: {
+        prototype: HTMLXyDropdownElement;
+        new (): HTMLXyDropdownElement;
+    };
+    interface HTMLXyDropdownGroupElement extends Components.XyDropdownGroup, HTMLStencilElement {
+    }
+    var HTMLXyDropdownGroupElement: {
+        prototype: HTMLXyDropdownGroupElement;
+        new (): HTMLXyDropdownGroupElement;
+    };
+    interface HTMLXyDropdownItemElement extends Components.XyDropdownItem, HTMLStencilElement {
+    }
+    var HTMLXyDropdownItemElement: {
+        prototype: HTMLXyDropdownItemElement;
+        new (): HTMLXyDropdownItemElement;
+    };
+    interface HTMLXyDropdownMenuElement extends Components.XyDropdownMenu, HTMLStencilElement {
+    }
+    var HTMLXyDropdownMenuElement: {
+        prototype: HTMLXyDropdownMenuElement;
+        new (): HTMLXyDropdownMenuElement;
+    };
     interface HTMLXyEditorElement extends Components.XyEditor, HTMLStencilElement {
     }
     var HTMLXyEditorElement: {
@@ -151,6 +192,10 @@ declare global {
         "xy-button-menu": HTMLXyButtonMenuElement;
         "xy-color-picker": HTMLXyColorPickerElement;
         "xy-drop-link": HTMLXyDropLinkElement;
+        "xy-dropdown": HTMLXyDropdownElement;
+        "xy-dropdown-group": HTMLXyDropdownGroupElement;
+        "xy-dropdown-item": HTMLXyDropdownItemElement;
+        "xy-dropdown-menu": HTMLXyDropdownMenuElement;
         "xy-editor": HTMLXyEditorElement;
         "xy-icon": HTMLXyIconElement;
         "xy-menu-bar": HTMLXyMenuBarElement;
@@ -182,6 +227,19 @@ declare namespace LocalJSX {
       })
     | null;
     }
+    interface XyDropdown {
+        "placement"?: Placement;
+        "trigger"?: 'click' | 'hover';
+    }
+    interface XyDropdownGroup {
+        "label"?: string;
+    }
+    interface XyDropdownItem {
+        "disabled"?: boolean;
+        "icon"?: string;
+    }
+    interface XyDropdownMenu {
+    }
     interface XyEditor {
         "bubbleBar"?: string[];
         "content"?: string;
@@ -202,8 +260,7 @@ declare namespace LocalJSX {
         "menuBar"?: string[];
     }
     interface XyPopover {
-        "initialOpen"?: boolean;
-        "modal"?: boolean;
+        "content"?: string;
         "placement"?: Placement;
         "trigger"?: 'click' | 'hover';
     }
@@ -218,6 +275,10 @@ declare namespace LocalJSX {
         "xy-button-menu": XyButtonMenu;
         "xy-color-picker": XyColorPicker;
         "xy-drop-link": XyDropLink;
+        "xy-dropdown": XyDropdown;
+        "xy-dropdown-group": XyDropdownGroup;
+        "xy-dropdown-item": XyDropdownItem;
+        "xy-dropdown-menu": XyDropdownMenu;
         "xy-editor": XyEditor;
         "xy-icon": XyIcon;
         "xy-menu-bar": XyMenuBar;
@@ -232,6 +293,10 @@ declare module "@stencil/core" {
             "xy-button-menu": LocalJSX.XyButtonMenu & JSXBase.HTMLAttributes<HTMLXyButtonMenuElement>;
             "xy-color-picker": LocalJSX.XyColorPicker & JSXBase.HTMLAttributes<HTMLXyColorPickerElement>;
             "xy-drop-link": LocalJSX.XyDropLink & JSXBase.HTMLAttributes<HTMLXyDropLinkElement>;
+            "xy-dropdown": LocalJSX.XyDropdown & JSXBase.HTMLAttributes<HTMLXyDropdownElement>;
+            "xy-dropdown-group": LocalJSX.XyDropdownGroup & JSXBase.HTMLAttributes<HTMLXyDropdownGroupElement>;
+            "xy-dropdown-item": LocalJSX.XyDropdownItem & JSXBase.HTMLAttributes<HTMLXyDropdownItemElement>;
+            "xy-dropdown-menu": LocalJSX.XyDropdownMenu & JSXBase.HTMLAttributes<HTMLXyDropdownMenuElement>;
             "xy-editor": LocalJSX.XyEditor & JSXBase.HTMLAttributes<HTMLXyEditorElement>;
             "xy-icon": LocalJSX.XyIcon & JSXBase.HTMLAttributes<HTMLXyIconElement>;
             "xy-menu-bar": LocalJSX.XyMenuBar & JSXBase.HTMLAttributes<HTMLXyMenuBarElement>;

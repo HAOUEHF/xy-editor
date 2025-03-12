@@ -1,0 +1,17 @@
+.xy-dropdown-item {
+  display: flex;
+  font-size: 14px;
+  padding: 6px 10px;
+  cursor: pointer;
+  line-height: 1.5;
+  color: var(--svg-color);
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+  min-width: 200px;
+  width: max-content;
+  align-items: center;
+  gap: 4px;
+  &:hover {
+    background-color: var(--menu-btn-hover-color);
+  }
+}

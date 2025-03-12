@@ -1,0 +1,25 @@
+.xy-dropdown-group {
+  display: block;
+  width: 100%;
+  height: auto;
+  &__label {
+    color: var(--group-label-color);
+    font-size: 12px;
+    padding: 4px 8px;
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  &__divider {
+    width: 105%;
+    height: 2px;
+    transform: scale(1, 0.5);
+    background-color: var(--border-line-color);
+    margin: 2px 0 2px -5px;
+  }
+  &:last-child {
+    .xy-dropdown-group__divider {
+      display: none;
+    }
+  }
+}

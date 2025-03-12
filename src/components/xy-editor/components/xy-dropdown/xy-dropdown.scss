@@ -1,22 +1,24 @@
-.xy-popover {
-  display: inline-block;
+.xy-dropdown {
+  display: inline-flex;
+  vertical-align: top;
 
-  .xy-popover-trigger {
-    width: max-content;
+  .xy-dropdown-trigger {
+    width: auto;
   }
-  .xy-popover-wrapper {
+  .xy-dropdown-wrapper {
     width: max-content;
     position: absolute;
     top: 0;
     left: 0;
     background-color: var(--bg-color);
-    padding: 8px;
+    padding: 4px;
     border-radius: 4px;
     animation: fadeInScale 0.4s ease-out forwards;
     box-shadow: 0 2px 12px 0 var(--card-bs-color);
     border: 1px solid var(--border-color);
-    z-index: 2025;
-    .xy-popover-arrow {
+    z-index: 2024;
+    max-width: 400px;
+    .xy-dropdown-arrow {
       position: absolute;
       background-color: var(--bg-color);
       width: 8px;
