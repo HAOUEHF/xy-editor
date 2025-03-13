@@ -1,4 +1,4 @@
-.xy-popover {
+:host {
   display: inline-block;
 
   .xy-popover-trigger {
@@ -6,18 +6,18 @@
   }
   .xy-popover-wrapper {
     width: max-content;
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     background-color: var(--bg-color);
     padding: 8px;
-    border-radius: 4px;
+    border-radius: 8px;
     animation: fadeInScale 0.4s ease-out forwards;
     box-shadow: 0 2px 12px 0 var(--card-bs-color);
     border: 1px solid var(--border-color);
     z-index: 2025;
     .xy-popover-arrow {
-      position: absolute;
+      position: fixed;
       background-color: var(--bg-color);
       width: 8px;
       height: 8px;

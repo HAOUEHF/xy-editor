@@ -67,13 +67,38 @@ const LineHeight = Extension.create({
             //   }
             // ],
             options: [
-              { label: '1.0', value: '1', component: h('xy-icon', { name: 'BoldIcon'} ) },
+              { label: '1.0', value: '1' },
               { label: '1.5', value: '1.5' },
               { label: '2.0', value: '2' },
               { label: '2.5', value: '2.5' },
               { label: '3.0', value: '3' }
             ],
-            isDropdown: true
+            isDropdown: true,
+            render: () => {
+              return h('xy-dropdown', {}, [
+                h('xy-icon', { name: 'LineHeightIcon' }),
+                h('xy-dropdown-menu', { slot: 'dropdown' }, [
+                  // Group 1
+                  h('xy-dropdown-group', { label: 'Group 1' }, [
+                    h('xy-dropdown-item', { icon: 'BoldIcon', data: { name: 'hello world', age: 18 } }, 'Item 1'),
+                    h('xy-dropdown-item', { disabled: true }, 'Item 2')
+                  ]),
+                  // Group 2
+                  h('xy-dropdown-group', { label: 'Group 2' }, [
+                    h('xy-dropdown-item', null, 'Item 3'),
+                    h('xy-popover', { trigger: 'hover', placement: 'right' }, [
+                      h('xy-dropdown-item', { slot: 'trigger' }, 'trigger'),
+                      h('div', null, [
+                        h('xy-dropdown-group', { label: 'Group 1' }, [
+                          h('xy-dropdown-item', { icon: 'BoldIcon' }, 'Item 1'),
+                          h('xy-dropdown-item', { disabled: true }, 'Item 2')
+                        ])
+                      ])
+                    ])
+                  ])
+                ])
+              ])
+            }
           }
         }
       }

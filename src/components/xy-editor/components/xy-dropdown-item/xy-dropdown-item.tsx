@@ -1,19 +1,21 @@
-import { Component, Prop, State, Host, h, Event, EventEmitter } from '@stencil/core'
+import { Component, Prop, State, Host, h, Event, EventEmitter, getElement, Element } from '@stencil/core'
 
 @Component({
   tag: 'xy-dropdown-item',
   styleUrl: 'xy-dropdown-item.scss'
 })
 export class XyDropdownItem {
+  @Element() el!: HTMLElement
   @Prop() disabled: boolean = false
   @Prop() icon: string = ''
-
+  @Prop() data: any = {}
   @Event()
   dropdownItemClick!: EventEmitter<void>
   handleClick = (e: MouseEvent) => {
     console.log(e)
-    if (this.disabled) return
-    this.dropdownItemClick.emit()
+    const parent = getElement(this).parentElement
+    // if (this.disabled || parent?.getAttribute('data-tag') === 'popover-trigger') return
+    // this.dropdownItemClick.emit(this.data)
   }
   render() {
     return (

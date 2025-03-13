@@ -1,6 +1,4 @@
-import { Component, Element, Host, h, Prop, State, Fragment, getElement } from '@stencil/core'
-import { useDropdown } from '@/hooks'
-import { Instance, Props } from 'tippy.js'
+import { Component, Element, Host, h, Prop, State, Fragment, getElement, EventEmitter, Event } from '@stencil/core'
 
 @Component({
   tag: 'xy-select',
@@ -18,11 +16,7 @@ export class XySelect {
   @Prop() groupLabel: string = 'label' // 分组标题字段名
 
   @State() isDropdownShow = false
-  private dropdownContent: HTMLElement | null = null
-  private componentView: any
   private itemData: any = null
-  private tippyDropdown: any
-  private dropEl: any | null = null
 
   // 判断是否是分组数据
   private isGrouped(options: any[]) {
@@ -52,54 +46,27 @@ export class XySelect {
         {item.component && (
           <div class="arrow-right">
             <xy-icon name="DownIcon" style={{ transform: 'rotate(-90deg)', pointerEvents: 'none' }} />
-            {/* {item.component} */}
           </div>
         )}
       </div>
     )
   }
 
-  private initTippyDropdown() {
-    setTimeout(() => {
-      console.log(getElement(this.el));
-
-      this.dropdownContent = getElement(this.el).querySelector('.dropdown-content123123')
-      console.log(this.itemData, this.dropdownContent, this.itemData?.component)
-      if (this.dropdownContent) {
-        const { instanceDropdown } = useDropdown({
-          contentEl: this.dropdownContent,
-          triggerEl: this.dropdownContent,
-          customShow: (instance: Instance<Props>) => {
-            instance.setProps({
-              getReferenceClientRect: () => this.dropEl?.getBoundingClientRect()
-            })
-          },
-          customHide: () => {}
-        })
-        this.tippyDropdown = instanceDropdown
-      }
-    }, 0)
-  }
-
+  @Event() command!: EventEmitter<any>
   // 保持原有方法声明
   private handleSelect = (item: any, event: MouseEvent) => {
-    console.log(item, event)
     this.itemData = item
-    this.dropEl = event.target
-    console.log(this.itemData)
-    console.log(this.tippyDropdown)
-    this.initTippyDropdown()
-    if(this.tippyDropdown){
-      this.tippyDropdown.show()
+    console.log(this.attrs);
+    if(this.attrs.command){
+      this.attrs.command(item.value)
+      this.command.emit(item.value)
     }
   }
   private hideComponent = () => {}
 
   async componentWillLoad() {
-    this.initTippyDropdown()
   }
   async componentWillUpdate(){
-    this.initTippyDropdown()
   }
   render() {
     const { options } = this.attrs
@@ -116,7 +83,7 @@ export class XySelect {
             ))
           : // 普通列表模式
             options.map((item: any) => this.renderItem(item))}
-        <div class="dropdown-content123123">{this.itemData && this.itemData.component}</div>
+        <div class="dropdown-content">{this.itemData && this.itemData.component}</div>
       </Host>
     )
   }

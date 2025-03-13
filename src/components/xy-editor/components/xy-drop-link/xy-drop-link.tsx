@@ -31,8 +31,10 @@ export class XyDropLink {
     }
   }
   private setupSwitch() {
-    if (this.el.shadowRoot) {
-      const switchBtn = this.el.shadowRoot.querySelector('#switch')
+    console.log('283094829034',this.el);
+
+    if (this.el) {
+      const switchBtn = this.el.querySelector('#switch')
       if (switchBtn) {
         switchBtn.addEventListener('click', this.handleSwitchClick)
       }

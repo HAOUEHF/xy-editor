@@ -1,6 +1,6 @@
 import type { Editor } from '@tiptap/core'
 import TipTapLink, { LinkOptions } from '@tiptap/extension-link'
-
+import { h } from '@stencil/core'
 type Props = {
   href: string
   target?: string | null
@@ -29,6 +29,9 @@ const Link = TipTapLink.extend<LinkOptions & { disabled: boolean }>({
             target: editor.getAttributes('link').target || null,
             rel: editor.getAttributes('link').rel || null,
             class: editor.getAttributes('link').class || null,
+            render: () => {
+              return h('xy-popover', {}, [h('xy-icon', { name: 'LinkIcon', slot: 'trigger' }), h('xy-drop-link')])
+            }
           }
         }
       }

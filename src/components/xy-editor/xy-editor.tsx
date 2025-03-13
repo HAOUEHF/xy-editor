@@ -171,28 +171,33 @@ export class XyEditor {
       lng: this.language
     })
   }
-
+  handleOnCommand = (event: CustomEvent) => {
+    console.log('handleOnCommand', event.detail)
+  }
   render() {
     return (
       <Host class="editor-container" data-theme={this.theme}>
-        {/* <div class="editor-header">
+        <div class="editor-header">
           {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
         </div>
-        <div class="editor-content"></div> */}
-        <xy-popover>
+        <div class="editor-content"></div>
+         <xy-popover>
           <button slot="trigger">trigger</button>
           <div>hello world</div>
         </xy-popover>
-        <xy-dropdown>
+        {/*
+        <xy-dropdown onCommand={this.handleOnCommand}>
           <button>Dropdown List</button>
           <xy-dropdown-menu slot="dropdown">
             <xy-dropdown-group label="Group 1">
-              <xy-dropdown-item icon="BoldIcon">Item 1</xy-dropdown-item>
+              <xy-dropdown-item icon="BoldIcon" data={{ name: 'hello world', age: 18 }}>
+                Item 1
+              </xy-dropdown-item>
               <xy-dropdown-item disabled={true}>Item 2</xy-dropdown-item>
             </xy-dropdown-group>
             <xy-dropdown-group label="Group 2">
               <xy-dropdown-item>Item 3</xy-dropdown-item>
-              <xy-popover trigger="hover" placement='right'>
+              <xy-popover trigger="hover" placement="right">
                 <xy-dropdown-item slot="trigger">trigger</xy-dropdown-item>
                 <div>
                   <xy-dropdown-group label="Group 1">
@@ -203,7 +208,7 @@ export class XyEditor {
               </xy-popover>
             </xy-dropdown-group>
           </xy-dropdown-menu>
-        </xy-dropdown>
+        </xy-dropdown> */}
       </Host>
     )
   }

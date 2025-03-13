@@ -68,7 +68,7 @@ export class XyMenuBar {
                 component,
                 priority: extension.options.priority ?? 0,
                 disabled: extension.options.disabled ?? false,
-                extensionName: extension.name,
+                extensionName: extension.name
               }))
             ]
           }
@@ -82,7 +82,7 @@ export class XyMenuBar {
               component,
               priority: extension.options.priority ?? 0,
               disabled: extension.options.disabled ?? false,
-              extensionName: extension.name,
+              extensionName: extension.name
             }
           ]
         }, [])
@@ -107,7 +107,6 @@ export class XyMenuBar {
 
   handleEditorUpdate = () => {
     this.getMenuBarList()
-
   }
 
   @Listen('handleCommand')

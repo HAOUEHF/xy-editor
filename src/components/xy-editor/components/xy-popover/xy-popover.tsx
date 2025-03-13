@@ -7,7 +7,8 @@ import type { StaticSide } from '@/types/XYPopover'
 
 @Component({
   tag: 'xy-popover',
-  styleUrl: 'xy-popover.scss' // 可根据需要定义样式
+  styleUrl: 'xy-popover.scss', // 可根据需要定义样式
+  shadow: true,
 })
 export class XyPopover {
   @Element() el!: HTMLElement
@@ -57,6 +58,8 @@ export class XyPopover {
    */
   updatePosition = () => {
     setTimeout(async () => {
+      console.log('updatePosition', this.triggerEl, this.floatingEl);
+
       if (this.triggerEl && this.floatingEl) {
         const { x, y, middlewareData } = await computePosition(this.triggerEl, this.floatingEl, {
           placement: this.placement,
@@ -160,13 +163,19 @@ export class XyPopover {
 
   render() {
     return (
-      <Host class="xy-popover" data-placement={this.placement} data-open={this.open ? 'true' : 'false'}>
+      <Host
+        class="xy-popover"
+        aria-hidden={this.open ? 'false' : 'true'}
+        data-placement={this.placement}
+        data-open={this.open ? 'true' : 'false'}
+      >
         <div
           class="xy-popover-trigger"
           ref={el => (this.triggerEl = el)}
           onClick={this.trigger === 'click' ? () => this.toggleOpen() : undefined}
           onMouseEnter={this.handleOnMouseEnter}
           onMouseLeave={this.handleOnMouseLeave}
+          data-tag="popover-trigger"
         >
           <slot name="trigger"></slot>
         </div>

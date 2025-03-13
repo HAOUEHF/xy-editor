@@ -8,4 +8,5 @@ export interface XYMenuBarItem {
   disabled: boolean
   isDropdown?: boolean
   component?: VNode
+  render?: Function | null
 }

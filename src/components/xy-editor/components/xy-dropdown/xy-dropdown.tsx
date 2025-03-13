@@ -1,4 +1,17 @@
-import { Component, Prop, State, Host, h, Element, Watch, Method, getElement, Listen } from '@stencil/core'
+import {
+  Component,
+  Prop,
+  State,
+  Host,
+  h,
+  Element,
+  Watch,
+  Method,
+  getElement,
+  Listen,
+  EventEmitter,
+  Event
+} from '@stencil/core'
 import { computePosition, autoUpdate, offset, flip, shift, arrow, limitShift } from '@floating-ui/dom'
 import { remToPx } from '@/utils'
 import { STATIC_SIDE_MAP, ARROW_BORDER_CONFIG } from '@/constants'
@@ -6,7 +19,8 @@ import type { Placement } from '@floating-ui/dom'
 import type { StaticSide } from '@/types/XYPopover'
 @Component({
   tag: 'xy-dropdown',
-  styleUrl: 'xy-dropdown.scss'
+  styleUrl: 'xy-dropdown.scss',
+  shadow: true
 })
 export class XyDropdown {
   @Element() el!: HTMLElement
@@ -126,8 +140,11 @@ export class XyDropdown {
     }
   }
 
+  @Event() command!: EventEmitter<any>
   @Listen('dropdownItemClick')
-  listenClick() {
+  listenClick(event: CustomEvent) {
+    console.log('dropdownItemClick', event)
+    this.command.emit(event.detail)
     this.open = false
   }
 

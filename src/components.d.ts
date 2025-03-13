@@ -7,15 +7,20 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 import { Editor } from "@tiptap/core";
+import { IMenuItemProps as IMenuItemProps1 } from "./components/xy-editor/components/xy-button-menu/xy-button-menu copy";
 import { XYMenuBarItem } from "./types/XYButtonMenu";
 import { Placement } from "@floating-ui/dom";
 export { IMenuItemProps } from "./components/xy-editor/components/xy-button-menu/xy-button-menu";
 export { Editor } from "@tiptap/core";
+export { IMenuItemProps as IMenuItemProps1 } from "./components/xy-editor/components/xy-button-menu/xy-button-menu copy";
 export { XYMenuBarItem } from "./types/XYButtonMenu";
 export { Placement } from "@floating-ui/dom";
 export namespace Components {
     interface XyButtonMenu {
         "menuData": IMenuItemProps;
+    }
+    interface XyButtonMenuCopy {
+        "menuData": IMenuItemProps1;
     }
     interface XyColorPicker {
         "attrs": any;
@@ -39,6 +44,7 @@ export namespace Components {
         "label": string;
     }
     interface XyDropdownItem {
+        "data": any;
         "disabled": boolean;
         "icon": string;
     }
@@ -84,13 +90,25 @@ export interface XyButtonMenuCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLXyButtonMenuElement;
 }
+export interface XyButtonMenuCopyCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLXyButtonMenuCopyElement;
+}
 export interface XyColorPickerCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLXyColorPickerElement;
 }
+export interface XyDropdownCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLXyDropdownElement;
+}
 export interface XyDropdownItemCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLXyDropdownItemElement;
+}
+export interface XySelectCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLXySelectElement;
 }
 declare global {
     interface HTMLXyButtonMenuElementEventMap {
@@ -109,6 +127,23 @@ declare global {
     var HTMLXyButtonMenuElement: {
         prototype: HTMLXyButtonMenuElement;
         new (): HTMLXyButtonMenuElement;
+    };
+    interface HTMLXyButtonMenuCopyElementEventMap {
+        "handleCommand": any;
+    }
+    interface HTMLXyButtonMenuCopyElement extends Components.XyButtonMenuCopy, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLXyButtonMenuCopyElementEventMap>(type: K, listener: (this: HTMLXyButtonMenuCopyElement, ev: XyButtonMenuCopyCustomEvent<HTMLXyButtonMenuCopyElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLXyButtonMenuCopyElementEventMap>(type: K, listener: (this: HTMLXyButtonMenuCopyElement, ev: XyButtonMenuCopyCustomEvent<HTMLXyButtonMenuCopyElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
+    }
+    var HTMLXyButtonMenuCopyElement: {
+        prototype: HTMLXyButtonMenuCopyElement;
+        new (): HTMLXyButtonMenuCopyElement;
     };
     interface HTMLXyColorPickerElementEventMap {
         "colorChange": {
@@ -138,7 +173,18 @@ declare global {
         prototype: HTMLXyDropLinkElement;
         new (): HTMLXyDropLinkElement;
     };
+    interface HTMLXyDropdownElementEventMap {
+        "command": any;
+    }
     interface HTMLXyDropdownElement extends Components.XyDropdown, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLXyDropdownElementEventMap>(type: K, listener: (this: HTMLXyDropdownElement, ev: XyDropdownCustomEvent<HTMLXyDropdownElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLXyDropdownElementEventMap>(type: K, listener: (this: HTMLXyDropdownElement, ev: XyDropdownCustomEvent<HTMLXyDropdownElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLXyDropdownElement: {
         prototype: HTMLXyDropdownElement;
@@ -197,7 +243,18 @@ declare global {
         prototype: HTMLXyPopoverElement;
         new (): HTMLXyPopoverElement;
     };
+    interface HTMLXySelectElementEventMap {
+        "command": any;
+    }
     interface HTMLXySelectElement extends Components.XySelect, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLXySelectElementEventMap>(type: K, listener: (this: HTMLXySelectElement, ev: XySelectCustomEvent<HTMLXySelectElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLXySelectElementEventMap>(type: K, listener: (this: HTMLXySelectElement, ev: XySelectCustomEvent<HTMLXySelectElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLXySelectElement: {
         prototype: HTMLXySelectElement;
@@ -205,6 +262,7 @@ declare global {
     };
     interface HTMLElementTagNameMap {
         "xy-button-menu": HTMLXyButtonMenuElement;
+        "xy-button-menu-copy": HTMLXyButtonMenuCopyElement;
         "xy-color-picker": HTMLXyColorPickerElement;
         "xy-drop-link": HTMLXyDropLinkElement;
         "xy-dropdown": HTMLXyDropdownElement;
@@ -222,6 +280,10 @@ declare namespace LocalJSX {
     interface XyButtonMenu {
         "menuData"?: IMenuItemProps;
         "onHandleCommand"?: (event: XyButtonMenuCustomEvent<any>) => void;
+    }
+    interface XyButtonMenuCopy {
+        "menuData"?: IMenuItemProps1;
+        "onHandleCommand"?: (event: XyButtonMenuCopyCustomEvent<any>) => void;
     }
     interface XyColorPicker {
         "attrs"?: any;
@@ -243,6 +305,7 @@ declare namespace LocalJSX {
     | null;
     }
     interface XyDropdown {
+        "onCommand"?: (event: XyDropdownCustomEvent<any>) => void;
         "placement"?: Placement;
         "trigger"?: 'click' | 'hover';
     }
@@ -250,6 +313,7 @@ declare namespace LocalJSX {
         "label"?: string;
     }
     interface XyDropdownItem {
+        "data"?: any;
         "disabled"?: boolean;
         "icon"?: string;
         "onDropdownItemClick"?: (event: XyDropdownItemCustomEvent<void>) => void;
@@ -286,9 +350,11 @@ declare namespace LocalJSX {
         "disabled"?: boolean;
         "groupField"?: string;
         "groupLabel"?: string;
+        "onCommand"?: (event: XySelectCustomEvent<any>) => void;
     }
     interface IntrinsicElements {
         "xy-button-menu": XyButtonMenu;
+        "xy-button-menu-copy": XyButtonMenuCopy;
         "xy-color-picker": XyColorPicker;
         "xy-drop-link": XyDropLink;
         "xy-dropdown": XyDropdown;
@@ -307,6 +373,7 @@ declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
             "xy-button-menu": LocalJSX.XyButtonMenu & JSXBase.HTMLAttributes<HTMLXyButtonMenuElement>;
+            "xy-button-menu-copy": LocalJSX.XyButtonMenuCopy & JSXBase.HTMLAttributes<HTMLXyButtonMenuCopyElement>;
             "xy-color-picker": LocalJSX.XyColorPicker & JSXBase.HTMLAttributes<HTMLXyColorPickerElement>;
             "xy-drop-link": LocalJSX.XyDropLink & JSXBase.HTMLAttributes<HTMLXyDropLinkElement>;
             "xy-dropdown": LocalJSX.XyDropdown & JSXBase.HTMLAttributes<HTMLXyDropdownElement>;
