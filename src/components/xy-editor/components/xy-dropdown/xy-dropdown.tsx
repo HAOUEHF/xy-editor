@@ -43,14 +43,16 @@ export class XyDropdown {
     this.open = !this.open
   }
 
-  handleOnMouseEnter = () => {
+  handleOnMouseEnter = (event: MouseEvent) => {
+    event.stopPropagation()
     this.isHovering = true
     if (this.trigger === 'hover') {
       this.open = true
     }
   }
 
-  handleOnMouseLeave = () => {
+  handleOnMouseLeave = (event: MouseEvent) => {
+    event.stopPropagation()
     this.isHovering = false
     if (this.trigger === 'hover') {
       // 延迟 200ms 关闭避免闪动

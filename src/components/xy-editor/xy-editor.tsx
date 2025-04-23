@@ -181,11 +181,12 @@ export class XyEditor {
           {this.editor ? <xy-menu-bar menuBar={this.menuBarList} editor={this.editor}></xy-menu-bar> : null}
         </div>
         <div class="editor-content"></div>
+        {/*
          <xy-popover>
           <button slot="trigger">trigger</button>
           <div>hello world</div>
         </xy-popover>
-        {/*
+
         <xy-dropdown onCommand={this.handleOnCommand}>
           <button>Dropdown List</button>
           <xy-dropdown-menu slot="dropdown">

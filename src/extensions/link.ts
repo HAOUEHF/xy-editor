@@ -30,7 +30,10 @@ const Link = TipTapLink.extend<LinkOptions & { disabled: boolean }>({
             rel: editor.getAttributes('link').rel || null,
             class: editor.getAttributes('link').class || null,
             render: () => {
-              return h('xy-popover', {}, [h('xy-icon', { name: 'LinkIcon', slot: 'trigger' }), h('xy-drop-link')])
+              return h('xy-popover', {}, [
+                h('Host', { slot: 'trigger' }, h('xy-icon', { name: 'LinkIcon' })),
+                h('xy-drop-link')
+              ])
             }
           }
         }

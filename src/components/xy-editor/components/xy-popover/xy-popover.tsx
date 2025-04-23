@@ -37,17 +37,23 @@ export class XyPopover {
     this.open = !this.open
   }
 
-  handleOnMouseEnter = () => {
+  handleOnMouseEnter = (event: MouseEvent) => {
     this.isHovering = true
     if (this.trigger === 'hover') {
+      event.stopPropagation()
+      event.preventDefault()
+      event.stopImmediatePropagation()
       this.open = true
     }
   }
 
-  handleOnMouseLeave = () => {
+  handleOnMouseLeave = (event: MouseEvent) => {
     this.isHovering = false
     if (this.trigger === 'hover') {
       // 延迟 200ms 关闭避免闪动
+      event.stopPropagation()
+      event.preventDefault()
+      event.stopImmediatePropagation()
       setTimeout(() => {
         if (!this.isHovering) this.open = false
       }, 200)

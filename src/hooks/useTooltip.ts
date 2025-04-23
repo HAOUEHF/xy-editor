@@ -17,7 +17,7 @@ const useTooltip = (options: IUseTooltip) => {
     placement: 'top',
     theme: 'light',
     allowHTML: true,
-    interactive: true,
+    interactive: false,
     appendTo: () => document.body,
     hideOnClick: true,
     ...props

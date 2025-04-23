@@ -1,7 +1,6 @@
 import { Component, Prop, State, h, Host, Element, getElement, Event, EventEmitter } from '@stencil/core'
 import type { XYMenuBarItem } from '@/types/XYButtonMenu'
-import { useTooltip, useDropdown } from '@/hooks'
-import { Instance, Props } from 'tippy.js'
+import { useTooltip } from '@/hooks'
 import { Editor } from '@tiptap/core'
 export interface IMenuItemProps {
   props: Partial<XYMenuBarItem>
@@ -12,7 +11,7 @@ export interface IMenuItemProps {
 
 @Component({
   tag: 'xy-button-menu',
-  styleUrl: 'xy-button-menu.scss'
+  styleUrl: 'xy-button-menu.scss',
 })
 export class XYButtonMenu {
   @Prop() menuData: IMenuItemProps = {
@@ -40,40 +39,40 @@ export class XYButtonMenu {
   @State() isActive: boolean = false
   @Element() el!: HTMLElement
   @State() isDropdownShow: boolean = false
-  @State() tippyDropdown!: Instance<Props>
   @State() dropEl!: HTMLElement
 
   dropdownContent: HTMLElement | null = null
 
   @Event()
   handleCommand!: EventEmitter<any>
+
   private handleButtonClick = () => {
     if (this.buttonState.disabled) return
-    // this.dropEl = this.el
-    // if (this.buttonState.isDropdown && this.tippyDropdown) {
-    //   console.log('dropdownContent', this.tippyDropdown)
-
-    //   this.tippyDropdown.show()
-
-    //   return
-    // }
-
-    // this.buttonState.command?.()
-    // this.handleCommand.emit()
+    if (this.buttonState.isDropdown) {
+      return
+    }
+    // 执行命令并触发事件
+    this.buttonState.command?.()
+    this.handleCommand.emit()
   }
 
   componentWillLoad() {
     setTimeout(() => {
-      // 组件加载时的初始化逻辑
       const menuEl = this.el
-      // console.log(menuEl)
       if (menuEl) {
         const xyEditor = getElement(document.querySelector('xy-editor'))
         const theme = xyEditor.getAttribute('theme')
-        useTooltip({ el: menuEl, props: { theme } })
+
+        useTooltip({
+          el: menuEl,
+          props: {
+            theme
+          }
+        })
       }
     }, 0)
   }
+
   async componentDidLoad() {}
 
   render() {

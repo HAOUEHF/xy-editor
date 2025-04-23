@@ -11,8 +11,9 @@ export class XyDropdownItem {
   @Prop() data: any = {}
   @Event()
   dropdownItemClick!: EventEmitter<void>
-  handleClick = (e: MouseEvent) => {
-    console.log(e)
+  handleClick = (event: MouseEvent) => {
+    console.log(event)
+    event.stopPropagation()
     const parent = getElement(this).parentElement
     // if (this.disabled || parent?.getAttribute('data-tag') === 'popover-trigger') return
     // this.dropdownItemClick.emit(this.data)
